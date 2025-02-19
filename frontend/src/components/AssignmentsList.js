@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/assignments-list.css';
+import { useNavigate } from 'react-router-dom';
 
 const sampleAssignments = [
     {
@@ -23,6 +24,12 @@ const sampleAssignments = [
 ];
 
 const AssignmentsList = () => {
+    const navigate = useNavigate();
+
+    const handleApplyClick = () => {
+        navigate('/apply-form');
+    };
+
     return (
         <div className="assignments-page">
             <h1 className="college-name">College Name</h1>
@@ -44,8 +51,10 @@ const AssignmentsList = () => {
                                 <span className="detail-value">${assignment.pages * assignment.pricePerPage}</span>
                             </div>
                         </div>
-                        <button className="apply-button">Apply to Write</button>
-                    </div>
+                        <button className="apply-button" onClick={handleApplyClick}>
+                        Apply to Write
+                        </button>                    
+                        </div>
                 ))}
             </div>
         </div>
@@ -53,3 +62,9 @@ const AssignmentsList = () => {
 };
 
 export default AssignmentsList;
+
+
+
+
+
+
