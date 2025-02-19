@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import '../styles/apply-form.css';
 
 const ApplyForm = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
-    contactType: 'mobile', // default selection
+    contactType: 'mobile',
     contactValue: '',
   });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const [showDialog, setShowDialog] = useState(false);
 
   const getPlaceholder = () => {
     switch(formData.contactType) {
@@ -28,10 +24,21 @@ const ApplyForm = () => {
     }
   };
 
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Application submitted:', formData);
-    // Add submission logic here
+    setShowDialog(true);
+  };
+
+  const handleCloseDialog = () => {
+    setShowDialog(false);
+    navigate('/assignments'); // Navigate back to assignments list
   };
 
   return (
@@ -75,6 +82,22 @@ const ApplyForm = () => {
           Confirm Application
         </button>
       </form>
+
+      {showDialog && (
+        <div className="dialog-overlay">
+          <div className="dialog-box">
+            <h2>Application Submitted!</h2>
+            <p>
+              You will get {formData.contactType === 'mobile' ? 'a call ' : 
+              formData.contactType === 'instaId' ? 'messages on Instagram ' : 'an email '} 
+              from the assignment owner so you can connect in college and complete the writing work.
+            </p>
+            <button onClick={handleCloseDialog} className="dialog-button">
+              OK
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

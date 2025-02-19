@@ -44,11 +44,11 @@ const AssignmentsList = () => {
                             </div>
                             <div className="detail-item">
                                 <span className="detail-label">Pay per page:</span>
-                                <span className="detail-value">${assignment.pricePerPage}</span>
+                                <span className="detail-value">₹{assignment.pricePerPage}</span>
                             </div>
                             <div className="detail-item total-pay">
                                 <span className="detail-label">Total Pay:</span>
-                                <span className="detail-value">${assignment.pages * assignment.pricePerPage}</span>
+                                <span className="detail-value">₹{assignment.pages * assignment.pricePerPage}</span>
                             </div>
                         </div>
                         <button className="apply-button" onClick={handleApplyClick}>
