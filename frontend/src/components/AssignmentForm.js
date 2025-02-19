@@ -31,7 +31,7 @@ const AssignmentForm = () => {
           <input
             type="text"
             name="name"
-            placeholder="Enter display name for your assignment"
+            placeholder="Enter a display name (any random name!)"
             value={formData.name}
             onChange={handleChange}
             required
@@ -66,7 +66,7 @@ const AssignmentForm = () => {
           <input
             type="email"
             name="email"
-            placeholder="Your email (for assignment updates only)"
+            placeholder="Your email (for notifications only, not visible on website)"
             value={formData.email}
             onChange={handleChange}
             required

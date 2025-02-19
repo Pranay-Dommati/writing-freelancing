@@ -1,15 +1,21 @@
-// filepath: frontend/src/App.js
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import LandingPage from './components/LandingPage';
 import CollegePage from './components/CollegePage';
+import AssignmentForm from './components/AssignmentForm';
 
 function App() {
   return (
-    <div className="App">
-      {/* <LandingPage /> */}
-      <CollegePage />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/college" element={<CollegePage />} />
+          <Route path="/assignment-form" element={<AssignmentForm />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

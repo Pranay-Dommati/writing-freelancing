@@ -1,9 +1,10 @@
 .assignment-form-page {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: #f5f5f5;
+    position: relative;
     padding: 0;
 }
 
@@ -11,60 +12,88 @@
     font-size: 2.5rem;
     color: #333;
     text-align: center;
-    margin: 50px 0;
+    position: absolute;
+    top: 50px;
+    width: 100%;
+    margin: 0;
 }
 
 .assignment-form {
     width: 90%;
     max-width: 500px;
     background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 2.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-top: 150px; /* Space for college name */
+    margin-bottom: 50px; /* Space at bottom */
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.8rem;
 }
 
 .form-group input {
     width: 100%;
-    padding: 12px 15px;
-    font-size: 1rem;
-    border: 2px solid #ddd;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    border: 2px solid #e0e0e0;
     border-radius: 8px;
     outline: none;
-    transition: border-color 0.3s ease;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
 }
 
 .form-group input:focus {
     border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #999;
 }
 
 .submit-button {
     width: 100%;
     padding: 15px;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     color: white;
     background-color: #007bff;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
 }
 
 .submit-button:hover {
     background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.submit-button:active {
+    transform: translateY(0);
 }
 
 @media (max-width: 768px) {
     .college-name {
         font-size: 2rem;
-        margin: 30px 0;
+        padding: 0 20px;
     }
 
     .assignment-form {
         width: 95%;
         padding: 1.5rem;
+        margin-top: 120px;
+    }
+
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .form-group input {
+        padding: 12px 15px;
+        font-size: 1rem;
     }
 }
