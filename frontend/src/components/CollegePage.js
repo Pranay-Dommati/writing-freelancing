@@ -9,11 +9,20 @@ const CollegePage = () => {
     navigate('/assignment-form');
   };
 
+  const handleWriteEarnClick = () => {
+    navigate('/assignments');
+  };
+
   return (
     <div className="college-page">
       <h1 className="college-name">College Name</h1>
       <div className="buttons-container">
-        <button className="action-button write-earn">Write & Earn</button>
+        <button 
+          className="action-button write-earn"
+          onClick={handleWriteEarnClick}
+        >
+          Write & Earn
+        </button>
         <button 
           className="action-button need-writing"
           onClick={handleNeedWritingClick}

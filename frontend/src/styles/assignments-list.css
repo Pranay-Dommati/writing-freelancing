@@ -1,0 +1,90 @@
+.assignments-page {
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    padding: 100px 20px 40px;
+}
+
+.college-name {
+    font-size: 2.5rem;
+    color: #333;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.assignments-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+    padding: 20px;
+}
+
+.assignment-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.assignment-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.assignment-name {
+    font-size: 1.4rem;
+    color: #333;
+    margin: 0 0 20px 0;
+}
+
+.assignment-details {
+    margin-bottom: 20px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.detail-label {
+    color: #666;
+    font-weight: 500;
+}
+
+.detail-value {
+    color: #333;
+    font-weight: 600;
+}
+
+.apply-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.apply-button:hover {
+    background-color: #45a049;
+}
+
+@media (max-width: 768px) {
+    .assignments-container {
+        grid-template-columns: 1fr;
+    }
+
+    .college-name {
+        font-size: 2rem;
+        margin-bottom: 30px;
+    }
+}
