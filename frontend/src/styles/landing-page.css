@@ -149,3 +149,58 @@ html, body {
     overflow-x: hidden;
     overflow-y: auto;
 }
+
+
+
+
+/* Update the search icon styles */
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    pointer-events: none;
+}
+
+/* Add separator styles */
+.search-separator {
+    position: absolute;
+    left: 40px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ddd;
+    font-size: 1.2rem;
+    pointer-events: none;
+}
+
+/* Update search bar padding to accommodate icon and separator */
+.search-bar {
+    width: 100%;
+    padding: 12px 20px 12px 55px;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    border-radius: 25px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .search-icon {
+        left: 12px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .search-separator {
+        left: 35px;
+        font-size: 1.1rem;
+    }
+
+    .search-bar {
+        padding: 10px 40px 10px 50px;
+        font-size: 0.95rem;
+    }
+}
