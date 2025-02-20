@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import NavigationBar from './Navbar'; // Add this import
 import '../styles/college-page.css';
 
 const CollegePage = () => {
@@ -37,23 +38,26 @@ const CollegePage = () => {
   }
 
   return (
-    <div className="college-page">
-      <h1 className="college-name">{collegeName}</h1>
-      <div className="buttons-container">
-        <button 
-          className="action-button write-earn"
-          onClick={handleWriteEarnClick}
-        >
-          Write & Earn
-        </button>
-        <button 
-          className="action-button need-writing"
-          onClick={handleNeedWritingClick}
-        >
-          Need Writing Done?
-        </button>
+    <>
+      <NavigationBar /> {/* Add NavigationBar component here */}
+      <div className="college-page">
+        <h1 className="college-name">{collegeName}</h1>
+        <div className="buttons-container">
+          <button 
+            className="action-button write-earn"
+            onClick={handleWriteEarnClick}
+          >
+            Write & Earn
+          </button>
+          <button 
+            className="action-button need-writing"
+            onClick={handleNeedWritingClick}
+          >
+            Need Writing Done?
+          </button>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
