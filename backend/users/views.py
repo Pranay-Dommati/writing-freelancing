@@ -1,3 +1,16 @@
-from django.shortcuts import render
+from rest_framework import generics
+from rest_framework.response import Response
+from .models import College
+from .serializers import CollegeSerializer
+from django.db.models import Q
 
-# Create your views here.
+class CollegeSearchView(generics.ListAPIView):
+    serializer_class = CollegeSerializer
+
+    def get_queryset(self):
+        query = self.request.query_params.get('q', '')
+        if query:
+            return College.objects.filter(
+                name__icontains=query
+            ).order_by('name')[:10]  # Limit to 10 results
+        return College.objects.none()
