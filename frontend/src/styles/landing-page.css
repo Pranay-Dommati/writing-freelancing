@@ -331,3 +331,92 @@ html, body {
     padding: 0; /* Remove padding-top */
     overflow-x: hidden;
 }
+
+
+
+
+
+
+
+/* Search bar container */
+.search-bar-container {
+    width: 90%;
+    max-width: 600px;
+    position: absolute;
+    top: 30vh;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 15px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+/* Suggestions list styling */
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 700px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 5px;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.suggestions-list li {
+    padding: 12px 20px;
+    cursor: pointer;
+    list-style: none;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* College name text truncation */
+.college-name-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-right: 10px;
+}
+
+.college-emoji {
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    margin-right: 8px;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .search-bar-container {
+        width: 92%;
+        padding: 0 10px;
+    }
+    
+    .suggestions-list {
+        width: 100%;
+    }
+    
+    .suggestions-list li {
+        padding: 10px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-bar-container {
+        width: 94%;
+    }
+}
