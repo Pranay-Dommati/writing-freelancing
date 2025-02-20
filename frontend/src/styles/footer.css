@@ -15,7 +15,7 @@
 }
 
 .copyright {
-  color: white;
+  color: rgb(0, 0, 0);
   font-size: 1rem;  /* Increased font size */
   font-weight: 400;  /* Slightly bolder text */
   text-align: left;
@@ -89,7 +89,7 @@
 
 
 .footer {
-  background-color: #a7bfd6;
+  background-color: #f8f9fa;
   padding: 1rem 0;
   position: relative; /* Changed from fixed to relative */
   width: 100%;
@@ -104,4 +104,8 @@
   margin: 0 auto;
   padding: 0 20px;
   box-sizing: border-box;
+}
+
+.copyright{
+  color: black;
 }

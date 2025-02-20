@@ -420,3 +420,56 @@ html, body {
         width: 94%;
     }
 }
+
+
+
+
+/* Add these styles to your existing CSS */
+.home-image-container {
+    position: absolute;
+    top: 45vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 800px;
+    padding: 0 20px;
+    text-align: center;
+    z-index: 0;
+}
+
+.home-image {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    object-fit: contain;
+    opacity: 0.9;
+}
+
+/* Update responsive styles */
+@media (max-width: 768px) {
+    .home-image-container {
+        top: 40vh;
+        max-width: 90%;
+    }
+
+    .home-image {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-image-container {
+        top: 35vh;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
