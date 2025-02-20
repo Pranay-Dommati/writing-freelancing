@@ -4,6 +4,50 @@ import axios from 'axios';
 import NavigationBar from './Navbar';
 import '../styles/apply-form.css';
 
+const validateMobile = (number) => {
+  const mobileRegex = /^[6-9]\d{9}$/;
+  return mobileRegex.test(number);
+};
+
+const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+
+const validateInstaId = (id) => {
+  const instaRegex = /^[a-zA-Z0-9_.]{1,30}$/;
+  return instaRegex.test(id);
+};
+
+const getValidationMessage = (type, value) => {
+  switch(type) {
+    case 'name':
+      if (!value.trim()) return 'Name is required';
+      if (value.trim().length < 2) return 'Name must be at least 2 characters';
+      return '';
+      
+    case 'mobile':
+      if (!value) return 'Mobile number is required';
+      if (!validateMobile(value)) return 'Please enter a valid 10-digit mobile number';
+      return '';
+      
+    case 'email':
+      if (!value) return 'Email is required';
+      if (!validateEmail(value)) return 'Please enter a valid email address';
+      return '';
+      
+    case 'instaId':
+      if (!value) return 'Instagram ID is required';
+      if (!validateInstaId(value)) {
+        return 'Please enter a valid Instagram ID (letters, numbers, periods, and underscores only)';
+      }
+      return '';
+      
+    default:
+      return '';
+  }
+};
+
 const ApplyForm = () => {
   const navigate = useNavigate();
   const { collegeId, assignmentId } = useParams();
@@ -14,10 +58,21 @@ const ApplyForm = () => {
     status: '',
     message: ''
   });
+  
   const [formData, setFormData] = useState({
     name: '',
     contactType: 'mobile',
     contactValue: '',
+  });
+
+  const [touched, setTouched] = useState({
+    name: false,
+    contactValue: false
+  });
+
+  const [errors, setErrors] = useState({
+    name: '',
+    contactValue: ''
   });
 
   useEffect(() => {
@@ -44,15 +99,87 @@ const ApplyForm = () => {
     }
   };
 
+  const validateField = (name, value) => {
+    if (name === 'name') {
+      return getValidationMessage('name', value);
+    }
+
+    if (name === 'contactValue') {
+      return getValidationMessage(formData.contactType, value);
+    }
+
+    return '';
+  };
+
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched(prev => ({
+      ...prev,
+      [name]: true
+    }));
+
+    const error = validateField(name, formData[name]);
+    setErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
+  };
+
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    if (touched[name]) {
+      const error = validateField(name, value);
+      setErrors(prev => ({
+        ...prev,
+        [name]: error
+      }));
+    }
+
+    if (name === 'contactType') {
+      setFormData(prev => ({
+        ...prev,
+        contactValue: ''
+      }));
+      setTouched(prev => ({
+        ...prev,
+        contactValue: false
+      }));
+      setErrors(prev => ({
+        ...prev,
+        contactValue: ''
+      }));
+    }
+  };
+
+  const validateForm = () => {
+    const nameError = validateField('name', formData.name);
+    const contactError = validateField('contactValue', formData.contactValue);
+
+    setTouched({
+      name: true,
+      contactValue: true
     });
+
+    setErrors({
+      name: nameError,
+      contactValue: contactError
+    });
+
+    return !nameError && !contactError;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+
     setDialogState({
       show: true,
       status: 'loading',
@@ -122,8 +249,13 @@ const ApplyForm = () => {
               placeholder="Enter your name"
               value={formData.name}
               onChange={handleChange}
+              onBlur={handleBlur}
+              className={touched.name && errors.name ? 'invalid' : ''}
               required
             />
+            {touched.name && errors.name && (
+              <div className="error-message">{errors.name}</div>
+            )}
           </div>
 
           <div className="form-group contact-group">
@@ -144,11 +276,20 @@ const ApplyForm = () => {
               placeholder={getPlaceholder()}
               value={formData.contactValue}
               onChange={handleChange}
+              onBlur={handleBlur}
+              className={touched.contactValue && errors.contactValue ? 'invalid' : ''}
               required
             />
           </div>
+          {touched.contactValue && errors.contactValue && (
+            <div className="error-message">{errors.contactValue}</div>
+          )}
 
-          <button type="submit" className="confirm-button">
+          <button 
+            type="submit" 
+            className="confirm-button"
+            disabled={Object.keys(errors).some(key => errors[key])}
+          >
             Confirm Application
           </button>
         </form>
