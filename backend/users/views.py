@@ -14,3 +14,10 @@ class CollegeSearchView(generics.ListAPIView):
                 name__icontains=query
             ).order_by('name')[:10]  # Limit to 10 results
         return College.objects.none()
+    
+    
+    
+class CollegeDetailView(generics.RetrieveAPIView):
+    queryset = College.objects.all()
+    serializer_class = CollegeSerializer
+    lookup_field = 'id'

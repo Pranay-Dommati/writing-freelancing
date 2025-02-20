@@ -1,21 +1,44 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/college-page.css';
 
 const CollegePage = () => {
   const navigate = useNavigate();
+  const { collegeId } = useParams();
+  const [collegeName, setCollegeName] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCollegeDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/colleges/${collegeId}/`);
+        setCollegeName(response.data.name);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching college details:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchCollegeDetails();
+  }, [collegeId]);
 
   const handleNeedWritingClick = () => {
-    navigate('/assignment-form');
+    navigate(`/assignment-form?college=${collegeId}`);
   };
 
   const handleWriteEarnClick = () => {
-    navigate('/assignments');
+    navigate(`/assignments?college=${collegeId}`);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="college-page">
-      <h1 className="college-name">College Name</h1>
+      <h1 className="college-name">{collegeName}</h1>
       <div className="buttons-container">
         <button 
           className="action-button write-earn"

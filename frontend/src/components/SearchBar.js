@@ -34,24 +34,12 @@ const SearchBar = () => {
         setSearchValue(e.target.value);
     };
 
-    const handleSuggestionClick = (collegeName) => {
-        setSearchValue(collegeName);
+    const handleSuggestionClick = (college) => {
+        setSearchValue(college.name);
         setSuggestions([]);
         setShowSuggestions(false);
-        navigate('/college');  // Navigate to college page
+        navigate(`/college/${college.id}`);  // Navigate with college ID
     };
-
-    // Close suggestions when clicking outside
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (suggestionRef.current && !suggestionRef.current.contains(event.target)) {
-                setShowSuggestions(false);
-            }
-        };
-
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
 
     return (
         <div className="search-bar-container" ref={suggestionRef}>
@@ -67,7 +55,7 @@ const SearchBar = () => {
                     {suggestions.map((college) => (
                         <li
                             key={college.id}
-                            onClick={() => handleSuggestionClick(college.name)}
+                            onClick={() => handleSuggestionClick(college)}
                         >
                             {college.name}
                         </li>
