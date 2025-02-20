@@ -10,26 +10,24 @@ const NavigationBar = () => {
   const handleShow = () => setShow(true);
 
   return (
-    <>
-      <Navbar bg="light" expand={false} className="mb-3">
-        <Container fluid>
-          <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
-          <Navbar.Brand className="mx-auto">FreelanceWriting</Navbar.Brand>
+    <Navbar bg="light" expand={false} className="navbar-fixed">
+      <Container fluid>
+        <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
+        <Navbar.Brand className="mx-auto">FreelanceWriting</Navbar.Brand>
 
-          <Offcanvas show={show} onHide={handleClose}>
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title>Menu</Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
-                <Nav.Link as={Link} to="/" onClick={handleClose}>Home</Nav.Link>
-                <Nav.Link as={Link} to="/about" onClick={handleClose}>About</Nav.Link>
-              </Nav>
-            </Offcanvas.Body>
-          </Offcanvas>
-        </Container>
-      </Navbar>
-    </>
+        <Offcanvas show={show} onHide={handleClose}>
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title>Menu</Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <Nav className="justify-content-end flex-grow-1 pe-3">
+              <Nav.Link as={Link} to="/" onClick={handleClose}>Home</Nav.Link>
+              <Nav.Link as={Link} to="/about" onClick={handleClose}>About</Nav.Link>
+            </Nav>
+          </Offcanvas.Body>
+        </Offcanvas>
+      </Container>
+    </Navbar>
   );
 };
 
