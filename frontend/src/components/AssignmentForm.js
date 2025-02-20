@@ -9,6 +9,11 @@ const AssignmentForm = () => {
   const navigate = useNavigate();
   const [collegeName, setCollegeName] = useState('');
   const [loading, setLoading] = useState(true);
+  const [dialogState, setDialogState] = useState({
+    show: false,
+    status: '',
+    message: ''
+  });
   const [formData, setFormData] = useState({
     name: '',
     pages: '',
@@ -40,6 +45,12 @@ const AssignmentForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setDialogState({
+      show: true,
+      status: 'loading',
+      message: 'Posting your assignment...'
+    });
+
     try {
       await axios.post(`http://localhost:8000/api/colleges/${collegeId}/assignments/`, {
         name: formData.name,
@@ -48,14 +59,25 @@ const AssignmentForm = () => {
         email: formData.email
       });
       
-      // Show success message
-      alert('Assignment posted successfully!');
-      
-      // Navigate back to college page
-      navigate(`/college/${collegeId}`);
+      setDialogState({
+        show: true,
+        status: 'success',
+        message: 'Assignment posted successfully!'
+      });
     } catch (error) {
-      console.error('Error posting assignment:', error);
-      alert('Error posting assignment. Please try again.');
+      setDialogState({
+        show: true,
+        status: 'error',
+        message: 'Error posting assignment. Please try again.'
+      });
+    }
+  };
+
+  const handleCloseDialog = () => {
+    if (dialogState.status === 'success') {
+      navigate(`/college/${collegeId}`);
+    } else {
+      setDialogState({ show: false, status: '', message: '' });
     }
   };
 
@@ -124,6 +146,35 @@ const AssignmentForm = () => {
             Post Assignment
           </button>
         </form>
+
+        {dialogState.show && (
+          <div className="dialog-overlay">
+            <div className="dialog-box">
+              {dialogState.status === 'loading' ? (
+                <>
+                  <div className="spinner"></div>
+                  <p>Posting your assignment...</p>
+                </>
+              ) : dialogState.status === 'success' ? (
+                <>
+                  <h2>Success!</h2>
+                  <p>{dialogState.message}</p>
+                  <button onClick={handleCloseDialog} className="dialog-button">
+                    OK
+                  </button>
+                </>
+              ) : (
+                <>
+                  <h2>Error</h2>
+                  <p>{dialogState.message}</p>
+                  <button onClick={handleCloseDialog} className="dialog-button">
+                    Try Again
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
