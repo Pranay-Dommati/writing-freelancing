@@ -175,3 +175,29 @@
         margin: 20px auto;
     }
 }
+
+
+
+
+
+
+
+
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .assignments-page {
+        padding-top: 150px;
+    }
+
+    .college-name {
+        font-size: 2rem;
+        margin: 100px 0 45px; /* Increased top margin for mobile */
+        padding: 0 15px;
+    }
+
+    .assignments-container {
+        margin-top: 20px; /* Added space between name and container */
+    }
+}
+
