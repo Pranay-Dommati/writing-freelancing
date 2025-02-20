@@ -43,13 +43,16 @@ const SearchBar = () => {
 
     return (
         <div className="search-bar-container" ref={suggestionRef}>
-            <input
-                type="text"
-                className="search-bar"
-                placeholder="Enter College/School"
-                value={searchValue}
-                onChange={handleInputChange}
-            />
+            <div className="search-input-wrapper">
+                <i className="search-icon">🔍</i>
+                <input
+                    type="text"
+                    className="search-bar"
+                    placeholder="Enter College/School"
+                    value={searchValue}
+                    onChange={handleInputChange}
+                />
+            </div>
             {showSuggestions && suggestions.length > 0 && (
                 <ul className="suggestions-list">
                     {suggestions.map((college) => (

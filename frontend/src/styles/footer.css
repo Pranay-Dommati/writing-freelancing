@@ -1,0 +1,33 @@
+.footer {
+  background-color: #a7bfd6;
+  padding: 1.2rem 0;  /* Increased padding */
+  position: fixed;
+  bottom: 0;  
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 30px;  /* Increased horizontal padding */
+}
+
+.copyright {
+  color: white;
+  font-size: 1rem;  /* Increased font size */
+  font-weight: 400;  /* Slightly bolder text */
+  text-align: left;
+  line-height: 1.5;  /* Added line height */
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 1rem 0;  /* Increased mobile padding */
+  }
+  
+  .footer-content {
+    padding: 0 20px;  /* Increased mobile horizontal padding */
+  }
+}

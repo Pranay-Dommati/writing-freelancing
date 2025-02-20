@@ -1,11 +1,12 @@
 import React from 'react';
 import SearchBar from './SearchBar';
+import NavigationBar from './Navbar';
 import '../styles/landing-page.css';
 
 const LandingPage = () => {
   return (
     <div className="landing-page">
-      <h1>Freelance-Writing</h1>
+      <NavigationBar />
       <SearchBar />
     </div>
   );

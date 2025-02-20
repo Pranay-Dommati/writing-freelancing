@@ -1,0 +1,33 @@
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .navbar-toggler {
+    border: none;
+    padding: 0.5rem;
+  }
+  
+  .navbar-toggler:focus {
+    box-shadow: none;
+  }
+  
+  .offcanvas {
+    max-width: 250px;
+  }
+  
+  .nav-link {
+    color: #333;
+    font-size: 1.1rem;
+    padding: 0.8rem 1rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-link:hover {
+    background-color: #f8f9fa;
+  }
