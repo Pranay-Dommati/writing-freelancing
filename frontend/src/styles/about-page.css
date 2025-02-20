@@ -1,41 +1,232 @@
 .about-page {
-    min-height: 100vh;
-    padding: 80px 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    padding-bottom: 100px; /* Space for footer */
-  }
-  
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-page h1 {
+  color: #333;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-top: 60px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.about-content {
+  max-width: 1200px;
+  width: 100%;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.platform-description {
+  text-align: center;
+  margin-bottom: 50px;
+  padding: 0 20px;
+}
+
+.platform-description p {
+  color: #666;
+  font-size: 1.2rem;
+  line-height: 1.8;
+}
+
+.about-content h2 {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.cards-container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.info-card {
+  flex: 1;
+  min-width: 300px;
+  max-width: 500px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee;
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.card-icon svg {
+  fill: #333;
+}
+
+.info-card h3 {
+  color: #333;
+  font-size: 1.4rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.info-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.info-card li {
+  color: #666;
+  margin: 15px 0;
+  padding-left: 25px;
+  position: relative;
+}
+
+.info-card li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #333;
+}
+
+@media (max-width: 768px) {
   .about-page h1 {
-    color: #333;
-    text-align: center;
-    margin-bottom: 40px;
+      font-size: 2rem;
+      margin-top: 40px;
   }
-  
+
   .about-content {
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+  }
+
+  .platform-description p {
+      font-size: 1.1rem;
+  }
+
+  .info-card {
+      min-width: 100%;
+      margin-bottom: 20px;
+  }
+}
+
+
+
+.about-content h1 {
+  margin-top: 0; /* Remove unnecessary space */
+  text-align: center;
+}
+
+
+
+
+.about-page {
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 60px 20px 40px; /* Added top padding for navbar */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.about-content {
+  max-width: 1200px;
+  width: 100%;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.about-content h1 {
+  color: #333;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 40px;
+  text-align: center;
+  position: relative; /* Changed from fixed */
+}
+
+/* Rest of your existing styles... */
+
+@media (max-width: 768px) {
+  .about-page {
+    padding: 70px 20px 40px; /* Adjusted top padding for mobile */
   }
   
-  .about-content h2 {
-    color: #444;
-    margin: 30px 0 15px;
+  .about-content h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
   }
   
-  .about-content p {
-    color: #666;
-    line-height: 1.6;
-    margin-bottom: 20px;
+  /* Rest of your media queries... */
+}
+
+
+
+
+
+
+
+.about-content h1 {
+  color: #333;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-bottom: 120px; /* Increased margin */
+  text-align: center;
+  position: relative;
+}
+
+.platform-description {
+  text-align: center;
+  margin-bottom: 60px; /* Increased margin */
+  padding: 0 20px;
+}
+
+.platform-description p {
+  color: #666;
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-top: 20px; /* Added margin top */
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .about-content h1 {
+      margin-bottom: 40px;
   }
-  
-  .about-content ul {
-    color: #666;
-    line-height: 1.6;
-    padding-left: 20px;
+
+  .platform-description {
+      margin-bottom: 50px;
   }
-  
-  .about-content li {
-    margin-bottom: 10px;
-  }
+}
+
+
+.about-page{
+  padding-bottom: 120px;
+}
+
+
+.about-content h1{
+  margin-top: -60px;
+}
+
+.about-content {
+  padding-bottom: 70px
+}
