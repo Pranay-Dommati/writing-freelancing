@@ -9,7 +9,8 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     width: 100%;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: #ffffff;
+    border-top: 0;
 }
 
 .navbar-brand {
@@ -19,7 +20,14 @@
     font-size: 1.4rem;
     font-weight: 500;
     color: #333;
-    margin: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+    color: #4caf50;
 }
 
 .navbar-toggler {
@@ -44,21 +52,52 @@
     max-width: 300px;
     width: 25% !important;
     background-color: #fff !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .offcanvas-backdrop.show {
     opacity: 0.3;
 }
 
-.nav-link {
+.offcanvas-title {
     color: #333;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.offcanvas-body {
+    padding: 1rem 0;
+}
+
+.nav-link {
+    color: #555 !important;
     font-size: 1.1rem;
-    padding: 0.8rem 1rem;
-    transition: background-color 0.3s ease;
+    padding: 0.8rem 1.5rem !important;
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 4px solid transparent;
 }
 
 .nav-link:hover {
-    background-color: #f8f9fa;
+    background-color: #f1f8f1 !important;
+    color: #4caf50 !important;
+    border-left-color: #4caf50;
+}
+
+.nav-link.active {
+    color: #4caf50 !important;
+    background-color: #f1f8f1 !important;
+    border-left-color: #4caf50;
+    font-weight: 500;
+}
+
+.btn-close {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.btn-close:hover {
+    opacity: 1;
 }
 
 /* Mobile adjustments */
@@ -72,7 +111,7 @@
     }
 
     .offcanvas {
-        max-width: 250px;
+        max-width: 280px;
         width: 75% !important;
         background-color: #fffffff2 !important;
     }
@@ -83,153 +122,6 @@
     
     .offcanvas-body {
         padding: 1rem;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 320px) {
-    .offcanvas {
-        width: 70% !important;
-    }
-}
-
-
-
-
-
-
-.navbar-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1030;
-    margin: 0;
-    padding: 0.5rem 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #fff;
-}
-
-
-
-.navbar-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1030;
-    margin: 0;
-    padding: 0.5rem 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #fff;
-}
-
-
-
-
-.navbar-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 1030;
-    margin: 0;
-    padding: 0.5rem 1rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    width: 100%;
-    box-sizing: border-box;
-    background-color: #ffffff;
-    border-top: 0; /* Add this line */
-}
-
-/* Update Navbar Brand styles */
-.navbar-brand {
-    margin: 0 !important; /* Add !important to override Bootstrap */
-    padding: 0 !important; /* Add !important to override Bootstrap */
-}
-
-
-.navbar-brand {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: #333;
-    margin: 0;
-    cursor: pointer; /* Add cursor pointer */
-    transition: color 0.3s ease; /* Add transition */
-}
-
-.navbar-brand:hover {
-    color: #4caf50; /* Add hover effect */
-}
-
-
-/* Update existing offcanvas styles */
-.offcanvas {
-    max-width: 300px;
-    width: 25% !important;
-    background-color: #fff !important;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Menu title styling */
-.offcanvas-title {
-    color: #333;
-    font-size: 1.3rem;
-    font-weight: 500;
-}
-
-/* Menu links container */
-.offcanvas-body {
-    padding: 1rem 0;
-}
-
-/* Menu links styling */
-.nav-link {
-    color: #555 !important;
-    font-size: 1.1rem;
-    padding: 0.8rem 1.5rem !important;
-    transition: all 0.3s ease;
-    position: relative;
-    border-left: 4px solid transparent;
-}
-
-/* Hover effect */
-.nav-link:hover {
-    background-color: #f8f9fa;
-    color: #4caf50 !important;
-    border-left-color: #4caf50;
-}
-
-/* Active state */
-.nav-link.active {
-    color: #4caf50 !important;
-    background-color: #f0f7ff;
-    border-left-color: #4caf50;
-    font-weight: 500;
-}
-
-/* Close button styling */
-.btn-close {
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
-}
-
-.btn-close:hover {
-    opacity: 1;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .offcanvas {
-        max-width: 280px;
-        width: 75% !important;
     }
 
     .nav-link {
@@ -242,32 +134,9 @@
     }
 }
 
-
-
-
-
-
-/* Menu links styling */
-.nav-link {
-    color: #555 !important;
-    font-size: 1.1rem;
-    padding: 0.8rem 1.5rem !important;
-    transition: all 0.3s ease;
-    position: relative;
-    border-left: 4px solid transparent;
-}
-
-/* Hover effect */
-.nav-link:hover {
-    background-color: #f1f8f1 !important; /* Updated to match active state */
-    color: #4caf50 !important;
-    border-left-color: #4caf50;
-}
-
-/* Active state */
-.nav-link.active {
-    color: #4caf50 !important;
-    background-color: #f1f8f1 !important; /* Updated to match hover state */
-    border-left-color: #4caf50;
-    font-weight: 500;
+/* Extra small devices */
+@media (max-width: 320px) {
+    .offcanvas {
+        width: 70% !important;
+    }
 }
