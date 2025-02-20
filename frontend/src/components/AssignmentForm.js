@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import NavigationBar from './Navbar';
 import '../styles/assignment-form.css';
 
 const AssignmentForm = () => {
@@ -59,65 +60,72 @@ const AssignmentForm = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <NavigationBar />
+        <div className="loading-container">Loading...</div>
+      </>
+    );
   }
 
   return (
-    <div className="assignment-form-page">
-      <h1 className="college-name">{collegeName}</h1>
-      <form className="assignment-form" onSubmit={handleSubmit}>
-        {/* ... existing form fields ... */}
-        <div className="form-group">
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter a display name (any random name!)"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
+    <>
+      <NavigationBar />
+      <div className="assignment-form-page">
+        <h1 className="college-name">{collegeName}</h1>
+        <form className="assignment-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter a display name (any random name!)"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <input
-            type="number"
-            name="pages"
-            placeholder="Approximate number of pages needed"
-            value={formData.pages}
-            onChange={handleChange}
-            required
-            min="1"
-          />
-        </div>
+          <div className="form-group">
+            <input
+              type="number"
+              name="pages"
+              placeholder="Approximate number of pages needed"
+              value={formData.pages}
+              onChange={handleChange}
+              required
+              min="1"
+            />
+          </div>
 
-        <div className="form-group">
-          <input
-            type="number"
-            name="pricePerPage"
-            placeholder="Amount you'll pay per page ($)"
-            value={formData.pricePerPage}
-            onChange={handleChange}
-            required
-            min="1"
-          />
-        </div>
+          <div className="form-group">
+            <input
+              type="number"
+              name="pricePerPage"
+              placeholder="Amount you'll pay per page ($)"
+              value={formData.pricePerPage}
+              onChange={handleChange}
+              required
+              min="1"
+            />
+          </div>
 
-        <div className="form-group">
-          <input
-            type="email"
-            name="email"
-            placeholder="Your email (for notifications only, not visible on website)"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <input
+              type="email"
+              name="email"
+              placeholder="Your email (for notifications only, not visible on website)"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        <button type="submit" className="submit-button">
-          Post Assignment
-        </button>
-      </form>
-    </div>
+          <button type="submit" className="submit-button">
+            Post Assignment
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 

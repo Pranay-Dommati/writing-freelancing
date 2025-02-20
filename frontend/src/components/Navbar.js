@@ -1,19 +1,31 @@
 import React, { useState } from 'react';
 import { Navbar, Container, Nav, Offcanvas } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Add useNavigate
 import '../styles/navbar.css';
 
 const NavigationBar = () => {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate(); // Add this hook
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
+  // Add this handler function
+  const handleBrandClick = () => {
+    navigate('/');
+  };
 
   return (
     <Navbar bg="light" expand={false} className="navbar-fixed">
       <Container fluid>
         <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
-        <Navbar.Brand className="mx-auto">FreelanceWriting</Navbar.Brand>
+        <Navbar.Brand 
+          className="mx-auto" 
+          onClick={handleBrandClick} 
+          style={{ cursor: 'pointer' }} // Add cursor style
+        >
+          FreelanceWriting
+        </Navbar.Brand>
 
         <Offcanvas show={show} onHide={handleClose}>
           <Offcanvas.Header closeButton>
