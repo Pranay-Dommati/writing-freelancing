@@ -348,15 +348,20 @@
 
 
 
+
+
 /* Contact Group (Select and Input) */
 .contact-group {
     display: flex;
     gap: 1rem;
     width: 100%;
+    flex-wrap: nowrap; /* Prevent wrapping */
 }
 
 .contact-group select {
-    flex: 0 0 40%; /* Don't allow shrinking, keep at 40% */
+    width: 40%; /* Fixed width */
+    min-width: 40%; /* Minimum width */
+    flex: 0 0 auto; /* Don't grow, don't shrink, use auto basis */
     padding: 12px;
     font-size: 1.1rem;
     border: 2px solid #e0e0e0;
@@ -375,7 +380,9 @@
 }
 
 .contact-group input {
-    flex: 0 0 60%; /* Don't allow shrinking, keep at 60% */
+    width: 60%; /* Fixed width */
+    min-width: 60%; /* Minimum width */
+    flex: 0 0 auto; /* Don't grow, don't shrink, use auto basis */
     height: 48px;
     padding: 12px 15px;
     font-size: 1.1rem;
@@ -395,6 +402,91 @@
     .contact-group select,
     .contact-group input {
         width: 100%;
-        flex: none; /* Remove flex properties on mobile */
+        min-width: 100%;
+        flex: none;
     }
+}
+
+
+
+
+
+/* Form Group Spacing */
+.form-group {
+    margin-bottom: 1rem; /* Consistent spacing between all form groups */
+    width: 100%;
+}
+
+/* Contact Group (Select and Input) */
+.contact-group {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.contact-group select,
+.contact-group input,
+.form-group input {
+    width: 100%; /* Make all inputs take full width */
+    height: 53px;
+    padding: 12px 15px;
+    font-size: 1.1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    background-color: white;
+}
+
+.contact-group select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 30px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .contact-group {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+}
+
+
+
+
+
+.confirm-button {
+    width: 100%;
+    padding: 12px;  /* Reduced from 15px */
+    font-size: 1.2rem;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-height: 42px;  /* Reduced from 45px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure spinner size matches new button height */
+.spinner {
+    width: 18px;  /* Reduced from 20px */
+    height: 18px;  /* Reduced from 20px */
+    border: 2px solid rgba(255, 255, 255, 0.3);  /* Reduced from 3px */
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin 1s ease-in-out infinite;
+    margin: 0 auto;
 }
