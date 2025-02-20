@@ -256,3 +256,49 @@
       margin-bottom: 2.25rem;
     }
   }
+
+
+
+
+  /* Helper Messages Styles */
+.helper-messages {
+    margin: 20px 0;
+  }
+  
+  .helper-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    color: #6c757d;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    transition: all 0.3s ease;
+  }
+  
+  .helper-message:last-child {
+    margin-bottom: 0;
+  }
+  
+  .helper-message:hover {
+    background-color: #f1f3f5;
+    border-color: #dee2e6;
+  }
+  
+  .info-icon {
+    flex-shrink: 0;
+    color: #6c757d;
+    margin-top: 2px;
+  }
+  
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .helper-message {
+      font-size: 0.85rem;
+      padding: 10px 14px;
+    }
+  }
