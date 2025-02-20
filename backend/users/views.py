@@ -41,3 +41,11 @@ class AssignmentCreateView(generics.CreateAPIView):
         self.perform_create(serializer)
         
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+
+class CollegeAssignmentsView(generics.ListAPIView):
+    serializer_class = AssignmentSerializer
+
+    def get_queryset(self):
+        college_id = self.kwargs['college_id']
+        return Assignment.objects.filter(college_id=college_id).order_by('-created_at')
