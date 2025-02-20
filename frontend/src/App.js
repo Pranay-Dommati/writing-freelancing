@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/college/:collegeId" element={<CollegePage />} />
-          <Route path="/assignment-form" element={<AssignmentForm />} />
+          <Route path="/college/:collegeId/addassignment" element={<AssignmentForm />} />
           <Route path="/assignments" element={<AssignmentsList />} />
           <Route path="/apply-form" element={<ApplyForm />} />
         </Routes>

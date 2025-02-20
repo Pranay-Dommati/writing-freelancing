@@ -25,7 +25,7 @@ const CollegePage = () => {
   }, [collegeId]);
 
   const handleNeedWritingClick = () => {
-    navigate(`/assignment-form?college=${collegeId}`);
+    navigate(`/college/${collegeId}/addassignment`);
   };
 
   const handleWriteEarnClick = () => {

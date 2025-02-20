@@ -1,13 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/assignment-form.css';
 
 const AssignmentForm = () => {
+  const { collegeId } = useParams();
+  const [collegeName, setCollegeName] = useState('');
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     pages: '',
     pricePerPage: '',
     email: ''
   });
+
+  useEffect(() => {
+    const fetchCollegeDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/colleges/${collegeId}/`);
+        setCollegeName(response.data.name);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching college details:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchCollegeDetails();
+  }, [collegeId]);
 
   const handleChange = (e) => {
     setFormData({
@@ -18,15 +38,19 @@ const AssignmentForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Add form submission logic here
+    // Add form submission logic here with collegeId
+    console.log('Form submitted:', { ...formData, collegeId });
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="assignment-form-page">
-      <h1 className="college-name">College Name</h1>
-      
+      <h1 className="college-name">{collegeName}</h1>
       <form className="assignment-form" onSubmit={handleSubmit}>
+        {/* ... existing form fields ... */}
         <div className="form-group">
           <input
             type="text"
