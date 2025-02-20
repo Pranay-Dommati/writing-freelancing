@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/assignment-form.css';
 
 const AssignmentForm = () => {
   const { collegeId } = useParams();
+  const navigate = useNavigate();
   const [collegeName, setCollegeName] = useState('');
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
@@ -36,10 +37,25 @@ const AssignmentForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add form submission logic here with collegeId
-    console.log('Form submitted:', { ...formData, collegeId });
+    try {
+      await axios.post(`http://localhost:8000/api/colleges/${collegeId}/assignments/`, {
+        name: formData.name,
+        pages: parseInt(formData.pages),
+        price_per_page: parseFloat(formData.pricePerPage),
+        email: formData.email
+      });
+      
+      // Show success message
+      alert('Assignment posted successfully!');
+      
+      // Navigate back to college page
+      navigate(`/college/${collegeId}`);
+    } catch (error) {
+      console.error('Error posting assignment:', error);
+      alert('Error posting assignment. Please try again.');
+    }
   };
 
   if (loading) {
