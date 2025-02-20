@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import NavigationBar from './Navbar';
 import '../styles/apply-form.css';
 
 const ApplyForm = () => {
@@ -10,7 +11,7 @@ const ApplyForm = () => {
   const [loading, setLoading] = useState(true);
   const [dialogState, setDialogState] = useState({
     show: false,
-    status: '', // 'loading' | 'success' | 'error'
+    status: '',
     message: ''
   });
   const [formData, setFormData] = useState({
@@ -36,14 +37,10 @@ const ApplyForm = () => {
 
   const getPlaceholder = () => {
     switch(formData.contactType) {
-      case 'mobile':
-        return 'Enter your mobile number';
-      case 'instaId':
-        return 'Enter your Instagram ID';
-      case 'email':
-        return 'Enter your email address';
-      default:
-        return '';
+      case 'mobile': return 'Enter your mobile number';
+      case 'instaId': return 'Enter your Instagram ID';
+      case 'email': return 'Enter your email address';
+      default: return '';
     }
   };
 
@@ -104,80 +101,88 @@ const ApplyForm = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <>
+        <NavigationBar />
+        <div className="loading-container">Loading...</div>
+      </>
+    );
   }
 
   return (
-    <div className="apply-form-page">
-      <h1 className="college-name">{collegeName}</h1>
-      <form className="apply-form" onSubmit={handleSubmit}>
-        <div className="form-group">
-          <input
-            type="text"
-            name="name"
-            placeholder="Enter your name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <div className="form-group contact-group">
-          <select
-            name="contactType"
-            value={formData.contactType}
-            onChange={handleChange}
-            required
-          >
-            <option value="mobile">Mobile Number</option>
-            <option value="instaId">Instagram ID</option>
-            <option value="email">Email</option>
-          </select>
-
-          <input
-            type={formData.contactType === 'email' ? 'email' : 'text'}
-            name="contactValue"
-            placeholder={getPlaceholder()}
-            value={formData.contactValue}
-            onChange={handleChange}
-            required
-          />
-        </div>
-
-        <button type="submit" className="confirm-button">
-          Confirm Application
-        </button>
-      </form>
-
-      {dialogState.show && (
-        <div className="dialog-overlay">
-          <div className="dialog-box">
-            {dialogState.status === 'loading' ? (
-              <>
-                <div className="spinner"></div>
-                <p>Submitting your application...</p>
-              </>
-            ) : dialogState.status === 'success' ? (
-              <>
-                <h2>Application Submitted!</h2>
-                <p>{dialogState.message}</p>
-                <button onClick={handleCloseDialog} className="dialog-button">
-                  OK
-                </button>
-              </>
-            ) : (
-              <>
-                <h2>Error</h2>
-                <p>{dialogState.message}</p>
-                <button onClick={handleCloseDialog} className="dialog-button">
-                  Try Again
-                </button>
-              </>
-            )}
+    <>
+      <NavigationBar />
+      <div className="apply-form-page">
+        <h1 className="college-name">{collegeName}</h1>
+        <form className="apply-form" onSubmit={handleSubmit}>
+          <div className="form-group">
+            <input
+              type="text"
+              name="name"
+              placeholder="Enter your name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+            />
           </div>
-        </div>
-      )}
-    </div>
+
+          <div className="form-group contact-group">
+            <select
+              name="contactType"
+              value={formData.contactType}
+              onChange={handleChange}
+              required
+            >
+              <option value="mobile">Mobile Number</option>
+              <option value="instaId">Instagram ID</option>
+              <option value="email">Email</option>
+            </select>
+
+            <input
+              type={formData.contactType === 'email' ? 'email' : 'text'}
+              name="contactValue"
+              placeholder={getPlaceholder()}
+              value={formData.contactValue}
+              onChange={handleChange}
+              required
+            />
+          </div>
+
+          <button type="submit" className="confirm-button">
+            Confirm Application
+          </button>
+        </form>
+
+        {dialogState.show && (
+          <div className="dialog-overlay">
+            <div className="dialog-box">
+              {dialogState.status === 'loading' ? (
+                <>
+                  <div className="spinner"></div>
+                  <p>Submitting your application...</p>
+                </>
+              ) : dialogState.status === 'success' ? (
+                <>
+                  <h2>Application Submitted!</h2>
+                  <p>{dialogState.message}</p>
+                  <button onClick={handleCloseDialog} className="dialog-button">
+                    OK
+                  </button>
+                </>
+              ) : (
+                <>
+                  <h2>Error</h2>
+                  <p>{dialogState.message}</p>
+                  <button onClick={handleCloseDialog} className="dialog-button">
+                    Try Again
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

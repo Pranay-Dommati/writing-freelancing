@@ -97,3 +97,26 @@
         font-size: 1rem;
     }
 }
+
+
+
+
+.assignment-form-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f5f5f5;
+    position: relative;
+    padding: 76px 20px 40px; /* Added padding-top for navbar */
+}
+
+.loading-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 76px; /* Added padding-top for navbar */
+}
+
+/* Rest of your existing CSS */
