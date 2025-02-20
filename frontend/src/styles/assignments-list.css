@@ -128,3 +128,50 @@
 .assignments-page .college-name {
     padding-top:25px;
 }
+
+
+
+
+/* Add these styles for Load More button */
+.load-more-button {
+    background-color: #4c594d;
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 30px auto;
+    display: block;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.load-more-button:hover {
+    background-color: #647565;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.load-more-button:active {
+    transform: translateY(0);
+}
+
+/* Loading container styles */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .load-more-button {
+        padding: 10px 25px;
+        font-size: 0.95rem;
+        margin: 20px auto;
+    }
+}
