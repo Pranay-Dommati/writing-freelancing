@@ -2,33 +2,33 @@
   min-height: 100vh;
   width: 100%;
   background-color: #f5f5f5;
-  padding: 40px 20px;
+  padding: 60px 20px 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.about-page h1 {
-  color: #333;
-  font-size: 2.5rem;
-  font-weight: 600;
-  margin-top: 60px;
-  margin-bottom: 40px;
-  text-align: center;
 }
 
 .about-content {
   max-width: 1200px;
   width: 100%;
   background: white;
-  padding: 40px;
+  padding: 40px 40px 70px;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+.about-content h1 {
+  color: #333;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin: -60px 0 120px;
+  text-align: center;
+  position: relative;
+}
+
 .platform-description {
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
   padding: 0 20px;
 }
 
@@ -36,6 +36,7 @@
   color: #666;
   font-size: 1.2rem;
   line-height: 1.8;
+  margin-top: 20px;
 }
 
 .about-content h2 {
@@ -106,127 +107,29 @@
 }
 
 @media (max-width: 768px) {
-  .about-page h1 {
-      font-size: 2rem;
-      margin-top: 40px;
+  .about-page {
+    padding: 70px 20px 120px;
   }
 
   .about-content {
-      padding: 20px;
+    padding: 20px 20px 70px;
   }
 
-  .platform-description p {
-      font-size: 1.1rem;
-  }
-
-  .info-card {
-      min-width: 100%;
-      margin-bottom: 20px;
-  }
-}
-
-
-
-.about-content h1 {
-  margin-top: 0; /* Remove unnecessary space */
-  text-align: center;
-}
-
-
-
-
-.about-page {
-  min-height: 100vh;
-  width: 100%;
-  background-color: #f5f5f5;
-  padding: 60px 20px 40px; /* Added top padding for navbar */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.about-content {
-  max-width: 1200px;
-  width: 100%;
-  background: white;
-  padding: 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.about-content h1 {
-  color: #333;
-  font-size: 2.5rem;
-  font-weight: 600;
-  margin-bottom: 40px;
-  text-align: center;
-  position: relative; /* Changed from fixed */
-}
-
-/* Rest of your existing styles... */
-
-@media (max-width: 768px) {
-  .about-page {
-    padding: 70px 20px 40px; /* Adjusted top padding for mobile */
-  }
-  
   .about-content h1 {
     font-size: 2rem;
-    margin-bottom: 30px;
-  }
-  
-  /* Rest of your media queries... */
-}
-
-
-
-
-
-
-
-.about-content h1 {
-  color: #333;
-  font-size: 2.5rem;
-  font-weight: 600;
-  margin-bottom: 120px; /* Increased margin */
-  text-align: center;
-  position: relative;
-}
-
-.platform-description {
-  text-align: center;
-  margin-bottom: 60px; /* Increased margin */
-  padding: 0 20px;
-}
-
-.platform-description p {
-  color: #666;
-  font-size: 1.2rem;
-  line-height: 1.8;
-  margin-top: 20px; /* Added margin top */
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-  .about-content h1 {
-      margin-bottom: 40px;
+    margin-bottom: 40px;
   }
 
   .platform-description {
-      margin-bottom: 50px;
+    margin-bottom: 50px;
   }
-}
 
+  .platform-description p {
+    font-size: 1.1rem;
+  }
 
-.about-page{
-  padding-bottom: 120px;
-}
-
-
-.about-content h1{
-  margin-top: -60px;
-}
-
-.about-content {
-  padding-bottom: 70px
+  .info-card {
+    min-width: 100%;
+    margin-bottom: 20px;
+  }
 }
