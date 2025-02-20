@@ -8,6 +8,7 @@ import AssignmentForm from './components/AssignmentForm';
 import AssignmentsList from './components/AssignmentsList';
 import ApplyForm from './components/ApplyForm';
 import AboutPage from './components/AboutPage';
+import FeedbackForm from './components/FeedbackForm'; // Add this import
 import Footer from './components/Footer';
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/college/:collegeId/addassignment" element={<AssignmentForm />} />
             <Route path="/assignments" element={<AssignmentsList />} />
             <Route path="/college/:collegeId/assignments/:assignmentId/apply" element={<ApplyForm />} />
+            <Route path="/feedback" element={<FeedbackForm />} /> {/* Add this route */}
           </Routes>
         </div>
         <Footer />

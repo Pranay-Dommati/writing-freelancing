@@ -74,7 +74,7 @@
     .offcanvas {
         max-width: 250px;
         width: 75% !important;
-        background-color: rgba(255, 255, 255, 0.95) !important;
+        background-color: #fffffff2 !important;
     }
     
     .offcanvas-header {
@@ -142,7 +142,7 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     width: 100%;
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: #ffffff;
     border-top: 0; /* Add this line */
 }
 
@@ -167,4 +167,77 @@
 
 .navbar-brand:hover {
     color: #007bff; /* Add hover effect */
+}
+
+
+/* Update existing offcanvas styles */
+.offcanvas {
+    max-width: 300px;
+    width: 25% !important;
+    background-color: #fff !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Menu title styling */
+.offcanvas-title {
+    color: #333;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+/* Menu links container */
+.offcanvas-body {
+    padding: 1rem 0;
+}
+
+/* Menu links styling */
+.nav-link {
+    color: #555 !important;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem !important;
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 4px solid transparent;
+}
+
+/* Hover effect */
+.nav-link:hover {
+    background-color: #f8f9fa;
+    color: #007bff !important;
+    border-left-color: #007bff;
+}
+
+/* Active state */
+.nav-link.active {
+    color: #007bff !important;
+    background-color: #f0f7ff;
+    border-left-color: #007bff;
+    font-weight: 500;
+}
+
+/* Close button styling */
+.btn-close {
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.btn-close:hover {
+    opacity: 1;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .offcanvas {
+        max-width: 280px;
+        width: 75% !important;
+    }
+
+    .nav-link {
+        font-size: 1rem;
+        padding: 0.7rem 1.2rem !important;
+    }
+
+    .offcanvas-title {
+        font-size: 1.2rem;
+    }
 }

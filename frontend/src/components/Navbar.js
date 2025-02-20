@@ -35,6 +35,7 @@ const NavigationBar = () => {
             <Nav className="justify-content-end flex-grow-1 pe-3">
               <Nav.Link as={Link} to="/" onClick={handleClose}>Home</Nav.Link>
               <Nav.Link as={Link} to="/about" onClick={handleClose}>About</Nav.Link>
+              <Nav.Link as={Link} to="/feedback" onClick={handleClose}>Feedback</Nav.Link>
             </Nav>
           </Offcanvas.Body>
         </Offcanvas>

@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import CollegeSearchView, CollegeDetailView, AssignmentCreateView, CollegeAssignmentsView, ApplicationCreateView
+from .views import CollegeSearchView, CollegeDetailView, AssignmentCreateView, CollegeAssignmentsView, ApplicationCreateView, FeedbackView
 
 urlpatterns = [
     path('search/', CollegeSearchView.as_view(), name='college-search'),
@@ -9,4 +9,5 @@ urlpatterns = [
     path('colleges/<int:college_id>/assignments/<int:assignment_id>/apply/', 
          ApplicationCreateView.as_view(), 
          name='application-create'),
+    path('feedback/', FeedbackView.as_view(), name='feedback'),
 ]

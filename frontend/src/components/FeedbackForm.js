@@ -59,13 +59,12 @@ const FeedbackForm = () => {
       setDialogState({ show: false, status: '', message: '' });
     }
   };
-
   return (
     <>
       <NavigationBar />
       <div className="feedback-page">
+        <h1 className="feedback-title">Feedback</h1> {/* Moved outside */}
         <div className="feedback-container">
-          <h1>Feedback</h1>
           <form className="feedback-form" onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Any Errors Found?</label>
@@ -77,7 +76,7 @@ const FeedbackForm = () => {
                 rows="4"
               />
             </div>
-
+  
             <div className="form-group">
               <label>Suggestions</label>
               <textarea
@@ -88,13 +87,13 @@ const FeedbackForm = () => {
                 rows="4"
               />
             </div>
-
+  
             <button type="submit" className="submit-button">
               Submit Feedback
             </button>
           </form>
         </div>
-
+  
         {dialogState.show && (
           <div className="dialog-overlay">
             <div className="dialog-box">
@@ -126,6 +125,7 @@ const FeedbackForm = () => {
       </div>
     </>
   );
+
 };
 
 export default FeedbackForm;

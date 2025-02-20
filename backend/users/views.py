@@ -5,6 +5,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from .serializers import CollegeSerializer, AssignmentSerializer, ApplicationSerializer
 from django.db.models import Q
+from rest_framework.views import APIView
 
 class CollegeSearchView(generics.ListAPIView):
     serializer_class = CollegeSerializer
@@ -110,3 +111,43 @@ class ApplicationCreateView(generics.CreateAPIView):
             # Continue even if email fails
         
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    
+    
+
+class FeedbackView(APIView):
+    def post(self, request):
+        errors = request.data.get('errors', '')
+        suggestions = request.data.get('suggestions', '')
+        
+        if not errors and not suggestions:
+            return Response(
+                {'detail': 'Please provide either errors or suggestions'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        subject = 'New Feedback Received'
+        message = f"""
+        New feedback has been submitted:
+        
+        Errors Reported:
+        {errors}
+        
+        Suggestions:
+        {suggestions}
+        """
+        
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.EMAIL_HOST_USER,
+                [settings.EMAIL_HOST_USER],
+                fail_silently=False,
+            )
+            return Response({'detail': 'Feedback submitted successfully'})
+        except Exception as e:
+            return Response(
+                {'detail': 'Error sending feedback'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
