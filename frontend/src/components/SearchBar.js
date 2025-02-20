@@ -38,28 +38,34 @@ const SearchBar = () => {
         setSearchValue(college.name);
         setSuggestions([]);
         setShowSuggestions(false);
-        navigate(`/college/${college.id}`);  // Navigate with college ID
+        navigate(`/college/${college.id}`);
     };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (suggestionRef.current && !suggestionRef.current.contains(event.target)) {
+                setShowSuggestions(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
 
     return (
         <div className="search-bar-container" ref={suggestionRef}>
             <div className="search-input-wrapper">
                 <svg 
                     className="search-icon" 
-                    xmlns="http://www.w3.org/2000/svg"
+                    xmlns="http://www.w3.org/2000/svg" 
                     width="16" 
                     height="16" 
                     viewBox="0 0 16 16"
                 >
                     <path 
-                        fill="#666"
+                        fill="#444"
                         d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"
                     />
-
-
-
-
-                    
                 </svg>
                 <span className="search-separator">|</span>
                 <input
@@ -70,7 +76,18 @@ const SearchBar = () => {
                     onChange={handleInputChange}
                 />
             </div>
-            {/* ... rest of your code ... */}
+            {showSuggestions && suggestions.length > 0 && (
+                <ul className="suggestions-list">
+                    {suggestions.map((college) => (
+                        <li 
+                            key={college.id}
+                            onClick={() => handleSuggestionClick(college)}
+                        >
+                            {college.name}
+                        </li>
+                    ))}
+                </ul>
+            )}
         </div>
     );
 };
