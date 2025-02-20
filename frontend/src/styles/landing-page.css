@@ -468,3 +468,122 @@ html, body {
 
 
 
+
+/* Update the suggestions list and college name text styling */
+.suggestions-list li {
+    padding: 12px 15px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    overflow: hidden; /* Contains the scrolling */
+}
+
+.college-name-text {
+    flex: 1;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+}
+
+/* Animation for scrolling text */
+.college-name-text[data-scroll="true"] {
+    animation: scrollText 8s linear infinite;
+    animation-delay: 1s;
+}
+
+@keyframes scrollText {
+    0%, 10% {
+        transform: translateX(0%);
+    }
+    45%, 55% {
+        transform: translateX(calc(-100% + 100px));
+    }
+    90%, 100% {
+        transform: translateX(0%);
+    }
+}
+
+/* Pause animation on hover */
+.suggestions-list li:hover .college-name-text[data-scroll="true"] {
+    animation-play-state: paused;
+}
+
+.college-emoji {
+    flex-shrink: 0;
+    font-size: 1.2rem;
+    margin-right: 8px;
+}
+
+
+
+
+
+/* List items container */
+.suggestions-list li {
+    padding: 12px 15px;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid #eee;
+    width: 100%;
+    overflow: visible; /* Changed from hidden to visible */
+    background-color: white;
+    transition: background-color 0.3s ease;
+    position: relative; /* Added position relative */
+}
+
+/* College name text styling */
+.college-name-text {
+    flex: 1;
+    white-space: nowrap;
+    overflow: visible; /* Changed from hidden to visible */
+    position: relative;
+    padding-right: 10px;
+    width: 100%;
+}
+
+/* Animation for scrolling text */
+.college-name-text[data-scroll="true"] {
+    animation: scrollText 20s linear infinite;
+    animation-delay: 0.5s;
+    display: inline-block; /* Added display inline-block */
+    min-width: 100%; /* Added minimum width */
+}
+
+@keyframes scrollText {
+    0%, 5% {
+        transform: translateX(0);
+    }
+    45%, 55% {
+        transform: translateX(calc(-100% + 100px));
+    }
+    95%, 100% {
+        transform: translateX(0);
+    }
+}
+
+/* Update suggestions list container */
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 700px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 5px;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    overflow-x: hidden; /* Handle horizontal overflow at container level */
+}

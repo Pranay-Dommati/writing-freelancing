@@ -75,11 +75,10 @@ const SearchBar = () => {
                 />
             </div>
 
-{showSuggestions && suggestions.length > 0 && (
+            {showSuggestions && suggestions.length > 0 && (
     <ul className="suggestions-list">
         {suggestions.map((college) => (
             <li key={college.id} onClick={() => handleSuggestionClick(college)}>
-                <span className="college-emoji">🏫</span>
                 <span 
                     className="college-name-text"
                     ref={(el) => {
