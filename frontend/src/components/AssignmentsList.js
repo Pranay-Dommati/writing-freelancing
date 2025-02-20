@@ -39,7 +39,7 @@ const AssignmentsList = () => {
     }, [collegeId]);
 
     const handleApplyClick = (assignmentId) => {
-        navigate(`/apply-form?assignment=${assignmentId}&college=${collegeId}`);
+        navigate(`/college/${collegeId}/assignments/${assignmentId}/apply`);
     };
 
     if (loading) {

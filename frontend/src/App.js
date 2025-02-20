@@ -17,7 +17,7 @@ function App() {
           <Route path="/college/:collegeId" element={<CollegePage />} />
           <Route path="/college/:collegeId/addassignment" element={<AssignmentForm />} />
           <Route path="/assignments" element={<AssignmentsList />} />
-          <Route path="/apply-form" element={<ApplyForm />} />
+          <Route path="/college/:collegeId/assignments/:assignmentId/apply" element={<ApplyForm />} />
         </Routes>
       </div>
     </Router>

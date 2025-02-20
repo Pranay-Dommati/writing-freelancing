@@ -1,15 +1,34 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 import '../styles/apply-form.css';
 
 const ApplyForm = () => {
   const navigate = useNavigate();
+  const { collegeId, assignmentId } = useParams();
+  const [collegeName, setCollegeName] = useState('');
+  const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
     contactType: 'mobile',
     contactValue: '',
   });
   const [showDialog, setShowDialog] = useState(false);
+
+  useEffect(() => {
+    const fetchCollegeDetails = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/colleges/${collegeId}/`);
+        setCollegeName(response.data.name);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching college details:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchCollegeDetails();
+  }, [collegeId]);
 
   const getPlaceholder = () => {
     switch(formData.contactType) {
@@ -38,12 +57,16 @@ const ApplyForm = () => {
 
   const handleCloseDialog = () => {
     setShowDialog(false);
-    navigate('/assignments'); // Navigate back to assignments list
+    navigate(`/assignments?college=${collegeId}`);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="apply-form-page">
-      <h1 className="college-name">College Name</h1>
+      <h1 className="college-name">{collegeName}</h1>
       <form className="apply-form" onSubmit={handleSubmit}>
         <div className="form-group">
           <input
