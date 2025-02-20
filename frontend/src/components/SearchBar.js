@@ -81,6 +81,7 @@ const SearchBar = () => {
                             key={college.id}
                             onClick={() => handleSuggestionClick(college)}
                         >
+                            <span className="college-emoji">🏫</span>
                             {college.name}
                         </li>
                     ))}

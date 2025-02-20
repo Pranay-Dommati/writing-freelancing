@@ -13,7 +13,7 @@ const AboutPage = () => {
     <div className="platform-description">
       <p>
         FreelanceWriting connects college students who need writing assistance 
-        with talented student writers. Our platform facilitates seamless 
+        with student writers. Our platform facilitates seamless 
         collaboration while providing opportunities for students to earn through writing.
       </p>
     </div>
@@ -28,12 +28,12 @@ const AboutPage = () => {
                   <path d="M7 12h2v5H7zm4-7h2v12h-2zm4 4h2v8h-2z"/>
                 </svg>
               </div>
-              <h3>For Students Needing Writing Help</h3>
+              <h4>For Students Needing Writing Help</h4>
               <ul>
                 <li>Post your writing assignment details</li>
                 <li>Set your budget per page</li>
                 <li>Get matched with skilled writers</li>
-                <li>Review applications and connect directly</li>
+                <li>Receive an email with writer details</li>
               </ul>
             </div>
 
@@ -43,7 +43,7 @@ const AboutPage = () => {
                   <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
                 </svg>
               </div>
-              <h3>For Student Writers</h3>
+              <h4>For Student Writers</h4>
               <ul>
                 <li>Browse available writing opportunities</li>
                 <li>Choose assignments that match your expertise</li>

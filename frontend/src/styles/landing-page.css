@@ -204,3 +204,101 @@ html, body {
         font-size: 0.95rem;
     }
 }
+
+
+.suggestions-list li {
+    padding: 12px 20px;
+    cursor: pointer;
+    list-style: none;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.college-emoji {
+    font-size: 1.2rem;
+}
+
+
+
+
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%); /* Center the dropdown */
+    width: 95%; /* Reduced from 100% */
+    max-width: 700px; /* Added max-width */
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 5px;
+    padding: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .suggestions-list {
+        width: 98%; /* Slightly wider on mobile */
+        max-width: 280px;
+    }
+}
+
+
+
+@media (max-width: 768px) {
+    .search-bar-container {
+        width: 92%; /* Increased from 85% */
+        max-width: none; /* Removed max-width constraint */
+        padding: 0 10px;
+    }
+    
+    .suggestions-list {
+        width: 100%; /* Match parent width */
+        max-width: none; /* Remove max-width constraint */
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 390px) {
+    .search-bar-container {
+        width: 94%; /* Even wider for very small screens */
+        padding: 0 8px;
+    }
+}
+
+
+
+
+
+
+
+
+
+.search-bar-container {
+    width: 90%;
+    max-width: 600px;
+    position: absolute;
+    top: 30vh;  /* Lower percentage moves it upward */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0 15px;
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+
+
+
+/* For normal (desktop) screens */
+@media (max-width: 769px) {
+    .search-bar-container {
+      top: 20vh;
+    }
+  }
