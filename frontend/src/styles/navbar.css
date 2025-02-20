@@ -95,3 +95,59 @@
 
 
 
+
+
+
+.navbar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+
+
+.navbar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+}
+
+
+
+
+.navbar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    margin: 0;
+    padding: 0.5rem 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #fff;
+    border-top: 0; /* Add this line */
+}
+
+/* Update Navbar Brand styles */
+.navbar-brand {
+    margin: 0 !important; /* Add !important to override Bootstrap */
+    padding: 0 !important; /* Add !important to override Bootstrap */
+}

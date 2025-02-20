@@ -14,14 +14,16 @@ function App() {
   return (
     <Router>
       <div className="App">
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/college/:collegeId" element={<CollegePage />} />
-          <Route path="/college/:collegeId/addassignment" element={<AssignmentForm />} />
-          <Route path="/assignments" element={<AssignmentsList />} />
-          <Route path="/college/:collegeId/assignments/:assignmentId/apply" element={<ApplyForm />} />
-        </Routes>
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/college/:collegeId" element={<CollegePage />} />
+            <Route path="/college/:collegeId/addassignment" element={<AssignmentForm />} />
+            <Route path="/assignments" element={<AssignmentsList />} />
+            <Route path="/college/:collegeId/assignments/:assignmentId/apply" element={<ApplyForm />} />
+          </Routes>
+        </div>
         <Footer />
       </div>
     </Router>
