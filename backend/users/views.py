@@ -1,7 +1,9 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
-from .models import College, Assignment
-from .serializers import CollegeSerializer, AssignmentSerializer
+from .models import College, Assignment, Application
+from django.core.mail import send_mail
+from django.conf import settings
+from .serializers import CollegeSerializer, AssignmentSerializer, ApplicationSerializer
 from django.db.models import Q
 
 class CollegeSearchView(generics.ListAPIView):
@@ -49,3 +51,62 @@ class CollegeAssignmentsView(generics.ListAPIView):
     def get_queryset(self):
         college_id = self.kwargs['college_id']
         return Assignment.objects.filter(college_id=college_id).order_by('-created_at')
+    
+    
+    
+class ApplicationCreateView(generics.CreateAPIView):
+    serializer_class = ApplicationSerializer
+
+    def create(self, request, *args, **kwargs):
+        assignment_id = kwargs.get('assignment_id')
+        college_id = kwargs.get('college_id')
+        
+        # Add assignment to request data
+        data = {
+            **request.data,
+            'assignment': assignment_id
+        }
+
+        serializer = self.get_serializer(data=data)
+        serializer.is_valid(raise_exception=True)
+        application = serializer.save()
+
+        # Get assignment details
+        assignment = Assignment.objects.get(id=assignment_id)
+        
+        # Send email to assignment owner
+        subject = f'New Application for Your Assignment: {assignment.name}'
+        message = f"""
+        Hello,
+
+        Someone has applied to write your assignment!
+
+        Assignment Details:
+        - Name: {assignment.name}
+        - Pages: {assignment.pages}
+        - Pay per page: ${assignment.price_per_page}
+
+        Applicant Details:
+        - Name: {application.name}
+        - Contact via: {application.contact_type}
+        - Contact info: {application.contact_value}
+
+        You can connect with them through their provided contact information.
+
+        Best regards,
+        Your Writing Platform Team
+        """
+
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.EMAIL_HOST_USER,
+                [assignment.email],
+                fail_silently=False,
+            )
+        except Exception as e:
+            print(f"Error sending email: {e}")
+            # Continue even if email fails
+        
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

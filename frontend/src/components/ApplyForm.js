@@ -50,10 +50,40 @@ const ApplyForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setShowDialog(true);
-  };
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+      try {
+        // Format the data according to the backend expectations
+        const applicationData = {
+          name: formData.name,
+          contact_type: formData.contactType,
+          contact_value: formData.contactValue,
+        };
+  
+        // Make the API call
+        const response = await axios.post(
+          `http://localhost:8000/api/colleges/${collegeId}/assignments/${assignmentId}/apply/`,
+          applicationData,
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            }
+          }
+        );
+  
+        if (response.status === 201) {
+          setShowDialog(true);
+        }
+      } catch (error) {
+        console.error('Error submitting application:', error);
+        if (error.response?.data) {
+          // Show specific error message from backend
+          alert(`Error: ${JSON.stringify(error.response.data)}`);
+        } else {
+          alert('Error submitting application. Please try again.');
+        }
+      }
+    };
 
   const handleCloseDialog = () => {
     setShowDialog(false);

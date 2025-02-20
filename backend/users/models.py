@@ -28,3 +28,18 @@ class Assignment(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        
+        
+        
+class Application(models.Model):
+    assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='applications')
+    name = models.CharField(max_length=200)
+    contact_type = models.CharField(max_length=20)
+    contact_value = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Application by {self.name} for {self.assignment.name}"
+
+    class Meta:
+        ordering = ['-created_at']
