@@ -1,3 +1,4 @@
+/* Page Container */
 .assignment-form-page {
     min-height: 100vh;
     display: flex;
@@ -5,19 +6,21 @@
     align-items: center;
     background-color: #f5f5f5;
     position: relative;
-    padding: 0;
+    padding: 76px 20px 40px;
 }
 
+/* College Name */
 .college-name {
     font-size: 2.5rem;
     color: #333;
     text-align: center;
-    position: absolute;
-    top: 50px;
+    margin: 40px 0;
     width: 100%;
-    margin: 0;
+    padding: 0 20px;
+    line-height: 1.3;
 }
 
+/* Form Styles */
 .assignment-form {
     width: 90%;
     max-width: 500px;
@@ -25,8 +28,7 @@
     padding: 2.5rem;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin-top: 150px; /* Space for college name */
-    margin-bottom: 50px; /* Space at bottom */
+    margin: 20px auto 50px;
 }
 
 .form-group {
@@ -53,6 +55,7 @@
     color: #999;
 }
 
+/* Submit Button */
 .submit-button {
     width: 100%;
     padding: 15px;
@@ -76,152 +79,7 @@
     transform: translateY(0);
 }
 
-@media (max-width: 768px) {
-    .college-name {
-        font-size: 2rem;
-        padding: 0 20px;
-    }
-
-    .assignment-form {
-        width: 95%;
-        padding: 1.5rem;
-        margin-top: 120px;
-    }
-
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-
-    .form-group input {
-        padding: 12px 15px;
-        font-size: 1rem;
-    }
-}
-
-
-
-
-.assignment-form-page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f5f5f5;
-    position: relative;
-    padding: 76px 20px 40px; /* Added padding-top for navbar */
-}
-
-.loading-container {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 76px; /* Added padding-top for navbar */
-}
-
-/* Rest of your existing CSS */
-
-
-
-
-/* Form Container */
-.apply-form {
-    width: 90%;
-    max-width: 400px; /* Reduced from 500px */
-    background: white;
-    padding: 2rem; /* Reduced from 2.5rem */
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    margin-top: 120px; /* Reduced from 150px */
-    margin-bottom: 40px; /* Reduced from 50px */
-}
-
-/* Form Groups */
-.form-group {
-    margin-bottom: 1.5rem; /* Reduced from 1.8rem */
-}
-
-/* Input Fields */
-.form-group input {
-    width: 100%;
-    padding: 10px 15px; /* Reduced from 12px 15px */
-    font-size: 1rem; /* Reduced from 1.1rem */
-    border: 2px solid #e0e0e0;
-    border-radius: 8px;
-}
-
-/* Contact Group (Select and Input) */
-.contact-group select {
-    width: 38%; /* Slightly reduced */
-    padding: 10px; /* Reduced from 12px */
-    font-size: 1rem; /* Reduced from 1.1rem */
-}
-
-.contact-group input {
-    width: 62%; /* Adjusted to match select change */
-}
-
-/* Button */
-.confirm-button {
-    padding: 12px; /* Reduced from 15px */
-    font-size: 1.1rem; /* Reduced from 1.2rem */
-    min-height: 42px; /* Reduced from 45px */
-}
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-    .apply-form {
-        width: 92%;
-        max-width: 350px; /* Further reduced for mobile */
-        padding: 1.5rem;
-        margin-top: 100px;
-    }
-
-    .college-name {
-        font-size: 1.8rem; /* Reduced from 2rem */
-        padding: 0 15px;
-    }
-
-    .contact-group {
-        flex-direction: column;
-        gap: 0.8rem; /* Reduced gap */
-    }
-
-    .contact-group select,
-    .contact-group input {
-        width: 100%;
-        height: 40px; /* Fixed height for mobile */
-        font-size: 0.95rem;
-    }
-
-    .form-group {
-        margin-bottom: 1.2rem;
-    }
-
-    .confirm-button {
-        padding: 10px;
-        font-size: 1rem;
-        min-height: 40px;
-    }
-}
-
-/* Small mobile devices */
-@media (max-width: 380px) {
-    .apply-form {
-        width: 94%;
-        padding: 1.2rem;
-        margin-top: 90px;
-    }
-
-    .college-name {
-        font-size: 1.6rem;
-    }
-}
-
-
-
-
-/* Add these dialog styles */
+/* Dialog Styles */
 .dialog-overlay {
     position: fixed;
     top: 0;
@@ -274,6 +132,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Loading Spinner */
 .spinner {
     width: 40px;
     height: 40px;
@@ -288,10 +147,44 @@
     to { transform: rotate(360deg); }
 }
 
-/* Mobile adjustments */
+
+
+.assignment-form-page {
+    padding-top: 200px;
+}
+
+
+
+/* Mobile Adjustments */
 @media (max-width: 768px) {
-    .dialog-box {
+    .assignment-form-page {
+        padding-top: 90px;
+    }
+
+    .college-name {
+        font-size: 1.6rem; /* Updated from 0.8rem to 1.6rem */
+        padding: 0 15px;
+        margin: 30px 0;
+        line-height: 1.3;
+    }
+
+    .assignment-form {
         width: 95%;
         padding: 1.5rem;
+        margin-top: 20px;
+    }
+
+    /* Rest of mobile styles... */
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+    .assignment-form-page {
+        padding-top: 230px;
+    }
+
+    .college-name {
+        font-size: 1.4rem; /* Even smaller for very small screens */
+        margin: 25px 0;
     }
 }
