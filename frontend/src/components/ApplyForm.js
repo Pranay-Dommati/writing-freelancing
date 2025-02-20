@@ -8,12 +8,16 @@ const ApplyForm = () => {
   const { collegeId, assignmentId } = useParams();
   const [collegeName, setCollegeName] = useState('');
   const [loading, setLoading] = useState(true);
+  const [dialogState, setDialogState] = useState({
+    show: false,
+    status: '', // 'loading' | 'success' | 'error'
+    message: ''
+  });
   const [formData, setFormData] = useState({
     name: '',
     contactType: 'mobile',
     contactValue: '',
   });
-  const [showDialog, setShowDialog] = useState(false);
 
   useEffect(() => {
     const fetchCollegeDetails = async () => {
@@ -50,44 +54,53 @@ const ApplyForm = () => {
     });
   };
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-      try {
-        // Format the data according to the backend expectations
-        const applicationData = {
-          name: formData.name,
-          contact_type: formData.contactType,
-          contact_value: formData.contactValue,
-        };
-  
-        // Make the API call
-        const response = await axios.post(
-          `http://localhost:8000/api/colleges/${collegeId}/assignments/${assignmentId}/apply/`,
-          applicationData,
-          {
-            headers: {
-              'Content-Type': 'application/json',
-            }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setDialogState({
+      show: true,
+      status: 'loading',
+      message: 'Submitting your application...'
+    });
+
+    try {
+      const applicationData = {
+        name: formData.name,
+        contact_type: formData.contactType,
+        contact_value: formData.contactValue,
+      };
+
+      await axios.post(
+        `http://localhost:8000/api/colleges/${collegeId}/assignments/${assignmentId}/apply/`,
+        applicationData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
           }
-        );
-  
-        if (response.status === 201) {
-          setShowDialog(true);
         }
-      } catch (error) {
-        console.error('Error submitting application:', error);
-        if (error.response?.data) {
-          // Show specific error message from backend
-          alert(`Error: ${JSON.stringify(error.response.data)}`);
-        } else {
-          alert('Error submitting application. Please try again.');
-        }
-      }
-    };
+      );
+
+      setDialogState({
+        show: true,
+        status: 'success',
+        message: `You will get ${formData.contactType === 'mobile' ? 'a call' : 
+                 formData.contactType === 'instaId' ? 'messages on Instagram' : 'an email'} 
+                 from the assignment owner so you can connect in college and complete the writing work.`
+      });
+    } catch (error) {
+      setDialogState({
+        show: true,
+        status: 'error',
+        message: error.response?.data?.detail || 'Error submitting application. Please try again.'
+      });
+    }
+  };
 
   const handleCloseDialog = () => {
-    setShowDialog(false);
-    navigate(`/assignments?college=${collegeId}`);
+    if (dialogState.status === 'success') {
+      navigate(`/assignments?college=${collegeId}`);
+    } else {
+      setDialogState({ show: false, status: '', message: '' });
+    }
   };
 
   if (loading) {
@@ -136,18 +149,31 @@ const ApplyForm = () => {
         </button>
       </form>
 
-      {showDialog && (
+      {dialogState.show && (
         <div className="dialog-overlay">
           <div className="dialog-box">
-            <h2>Application Submitted!</h2>
-            <p>
-              You will get {formData.contactType === 'mobile' ? 'a call ' : 
-              formData.contactType === 'instaId' ? 'messages on Instagram ' : 'an email '} 
-              from the assignment owner so you can connect in college and complete the writing work.
-            </p>
-            <button onClick={handleCloseDialog} className="dialog-button">
-              OK
-            </button>
+            {dialogState.status === 'loading' ? (
+              <>
+                <div className="spinner"></div>
+                <p>Submitting your application...</p>
+              </>
+            ) : dialogState.status === 'success' ? (
+              <>
+                <h2>Application Submitted!</h2>
+                <p>{dialogState.message}</p>
+                <button onClick={handleCloseDialog} className="dialog-button">
+                  OK
+                </button>
+              </>
+            ) : (
+              <>
+                <h2>Error</h2>
+                <p>{dialogState.message}</p>
+                <button onClick={handleCloseDialog} className="dialog-button">
+                  Try Again
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}

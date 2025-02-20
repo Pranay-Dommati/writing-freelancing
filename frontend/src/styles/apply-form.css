@@ -171,3 +171,76 @@
         padding: 1.5rem;
     }
 }
+
+
+
+
+/* Add to existing styles */
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    margin: 0 auto;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  .confirm-button:disabled {
+    background-color: #4CAF50;
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+  
+  .confirm-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 45px;
+  }
+
+
+
+  .dialog-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #4CAF50;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .dialog-button {
+    min-width: 120px;
+    padding: 12px 24px;
+    font-size: 1rem;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .dialog-button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+  }
