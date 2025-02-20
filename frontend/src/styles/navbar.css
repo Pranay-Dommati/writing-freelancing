@@ -166,7 +166,7 @@
 }
 
 .navbar-brand:hover {
-    color: #007bff; /* Add hover effect */
+    color: #4caf50; /* Add hover effect */
 }
 
 
@@ -203,15 +203,15 @@
 /* Hover effect */
 .nav-link:hover {
     background-color: #f8f9fa;
-    color: #007bff !important;
-    border-left-color: #007bff;
+    color: #4caf50 !important;
+    border-left-color: #4caf50;
 }
 
 /* Active state */
 .nav-link.active {
-    color: #007bff !important;
+    color: #4caf50 !important;
     background-color: #f0f7ff;
-    border-left-color: #007bff;
+    border-left-color: #4caf50;
     font-weight: 500;
 }
 
@@ -240,4 +240,34 @@
     .offcanvas-title {
         font-size: 1.2rem;
     }
+}
+
+
+
+
+
+
+/* Menu links styling */
+.nav-link {
+    color: #555 !important;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.5rem !important;
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 4px solid transparent;
+}
+
+/* Hover effect */
+.nav-link:hover {
+    background-color: #f1f8f1 !important; /* Updated to match active state */
+    color: #4caf50 !important;
+    border-left-color: #4caf50;
+}
+
+/* Active state */
+.nav-link.active {
+    color: #4caf50 !important;
+    background-color: #f1f8f1 !important; /* Updated to match hover state */
+    border-left-color: #4caf50;
+    font-weight: 500;
 }

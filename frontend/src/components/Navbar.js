@@ -1,18 +1,23 @@
 import React, { useState } from 'react';
 import { Navbar, Container, Nav, Offcanvas } from 'react-bootstrap';
-import { Link, useNavigate } from 'react-router-dom'; // Add useNavigate
+import { Link, useNavigate, useLocation } from 'react-router-dom'; // Add useLocation
 import '../styles/navbar.css';
 
 const NavigationBar = () => {
   const [show, setShow] = useState(false);
-  const navigate = useNavigate(); // Add this hook
+  const navigate = useNavigate();
+  const location = useLocation(); // Add this hook
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
-  // Add this handler function
   const handleBrandClick = () => {
     navigate('/');
+  };
+
+  // Function to check if link is active
+  const isActive = (path) => {
+    return location.pathname === path;
   };
 
   return (
@@ -22,7 +27,7 @@ const NavigationBar = () => {
         <Navbar.Brand 
           className="mx-auto" 
           onClick={handleBrandClick} 
-          style={{ cursor: 'pointer' }} // Add cursor style
+          style={{ cursor: 'pointer' }}
         >
           FreelanceWriting
         </Navbar.Brand>
@@ -33,9 +38,30 @@ const NavigationBar = () => {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
-              <Nav.Link as={Link} to="/" onClick={handleClose}>Home</Nav.Link>
-              <Nav.Link as={Link} to="/about" onClick={handleClose}>About</Nav.Link>
-              <Nav.Link as={Link} to="/feedback" onClick={handleClose}>Feedback</Nav.Link>
+              <Nav.Link 
+                as={Link} 
+                to="/" 
+                onClick={handleClose}
+                className={isActive('/') ? 'active' : ''}
+              >
+                Home
+              </Nav.Link>
+              <Nav.Link 
+                as={Link} 
+                to="/about" 
+                onClick={handleClose}
+                className={isActive('/about') ? 'active' : ''}
+              >
+                About
+              </Nav.Link>
+              <Nav.Link 
+                as={Link} 
+                to="/feedback" 
+                onClick={handleClose}
+                className={isActive('/feedback') ? 'active' : ''}
+              >
+                Feedback
+              </Nav.Link>
             </Nav>
           </Offcanvas.Body>
         </Offcanvas>

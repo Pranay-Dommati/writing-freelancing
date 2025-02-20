@@ -74,15 +74,23 @@ const SearchBar = () => {
                     onChange={handleInputChange}
                 />
             </div>
-            {showSuggestions && suggestions.length > 0 && (
+
+{showSuggestions && suggestions.length > 0 && (
     <ul className="suggestions-list">
         {suggestions.map((college) => (
-            <li 
-                key={college.id}
-                onClick={() => handleSuggestionClick(college)}
-            >
+            <li key={college.id} onClick={() => handleSuggestionClick(college)}>
                 <span className="college-emoji">🏫</span>
-                <span className="college-name-text">{college.name}</span>
+                <span 
+                    className="college-name-text"
+                    ref={(el) => {
+                        if (el) {
+                            const shouldScroll = el.scrollWidth > el.clientWidth;
+                            el.setAttribute('data-scroll', shouldScroll);
+                        }
+                    }}
+                >
+                    {college.name}
+                </span>
             </li>
         ))}
     </ul>
