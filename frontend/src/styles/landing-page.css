@@ -587,3 +587,30 @@ html, body {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     overflow-x: hidden; /* Handle horizontal overflow at container level */
 }
+
+
+
+
+
+
+
+
+/* Update the search-bar styles */
+.search-bar {
+    width: 100%;
+    padding: 12px 20px 12px 55px;
+    font-size: 1.1rem;
+    border: 2px solid #222020; /* Changed from #ddd to #000000 */
+    border-radius: 25px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+/* When focused, change to blue border */
+.search-bar:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* Keep rest of your existing styles */
