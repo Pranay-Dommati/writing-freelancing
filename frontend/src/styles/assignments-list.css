@@ -123,3 +123,8 @@
         transform: translateY(0);
     }
 }
+
+
+.assignments-page .college-name {
+    padding-top:25px;
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLocation, useParams } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import NavigationBar from './Navbar'; // Add this import
 import '../styles/assignments-list.css';
 
 const AssignmentsList = () => {
@@ -58,9 +59,11 @@ const AssignmentsList = () => {
     }
 
     return (
-        <div className="assignments-page">
-            <h1 className="college-name">{collegeName}</h1>
-            <div className="assignments-container">
+        <>
+            <NavigationBar /> {/* Add NavigationBar component here */}
+            <div className="assignments-page">
+                <h1 className="college-name">{collegeName}</h1>
+                <div className="assignments-container">
                 {assignments.map(assignment => (
                     <div key={assignment.id} className="assignment-card">
                         <h2 className="assignment-name">{assignment.name}</h2>
@@ -88,8 +91,9 @@ const AssignmentsList = () => {
                         </button>
                     </div>
                 ))}
+                </div>
             </div>
-        </div>
+        </>
     );
 };
 
