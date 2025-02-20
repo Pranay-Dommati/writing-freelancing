@@ -4,65 +4,70 @@ import axios from 'axios';
 import NavigationBar from './Navbar';
 import '../styles/apply-form.css';
 
-const validateMobile = (number) => {
-  const mobileRegex = /^[6-9]\d{9}$/;
-  return mobileRegex.test(number);
-};
-
-const validateEmail = (email) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return emailRegex.test(email);
-};
-
-const validateInstaId = (id) => {
-  const instaRegex = /^[a-zA-Z0-9_.]{1,30}$/;
-  return instaRegex.test(id);
+// Validation helper functions
+const validators = {
+  mobile: (number) => /^[6-9]\d{9}$/.test(number),
+  email: (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+  instaId: (id) => /^[a-zA-Z0-9_.]{1,30}$/.test(id)
 };
 
 const getValidationMessage = (type, value) => {
-  switch(type) {
+  const messages = {
+    name: {
+      required: 'Name is required',
+      minLength: 'Name must be at least 2 characters',
+      maxLength: 'Name must be less than 50 characters',
+      pattern: 'Name can only contain letters and spaces'
+    },
+    mobile: {
+      required: 'Mobile number is required',
+      pattern: 'Please enter a valid 10-digit mobile number starting with 6-9'
+    },
+    email: {
+      required: 'Email is required',
+      pattern: 'Please enter a valid email address'
+    },
+    instaId: {
+      required: 'Instagram ID is required',
+      pattern: 'Please enter a valid Instagram ID (letters, numbers, dots, underscores only)',
+      maxLength: 'Instagram ID must be less than 30 characters'
+    }
+  };
+
+  if (!value || !value.trim()) return messages[type].required;
+  
+  switch (type) {
     case 'name':
-      if (!value.trim()) return 'Name is required';
-      if (value.trim().length < 2) return 'Name must be at least 2 characters';
-      return '';
-      
+      if (value.trim().length < 2) return messages.name.minLength;
+      if (value.trim().length > 50) return messages.name.maxLength;
+      if (!/^[a-zA-Z\s]+$/.test(value)) return messages.name.pattern;
+      break;
     case 'mobile':
-      if (!value) return 'Mobile number is required';
-      if (!validateMobile(value)) return 'Please enter a valid 10-digit mobile number';
-      return '';
-      
+      if (!validators.mobile(value)) return messages.mobile.pattern;
+      break;
     case 'email':
-      if (!value) return 'Email is required';
-      if (!validateEmail(value)) return 'Please enter a valid email address';
-      return '';
-      
+      if (!validators.email(value)) return messages.email.pattern;
+      break;
     case 'instaId':
-      if (!value) return 'Instagram ID is required';
-      if (!validateInstaId(value)) {
-        return 'Please enter a valid Instagram ID (letters, numbers, periods, and underscores only)';
-      }
-      return '';
-      
+      if (!validators.instaId(value)) return messages.instaId.pattern;
+      if (value.length > 30) return messages.instaId.maxLength;
+      break;
     default:
       return '';
   }
+  return '';
 };
 
 const ApplyForm = () => {
   const navigate = useNavigate();
   const { collegeId, assignmentId } = useParams();
-  const [collegeName, setCollegeName] = useState('');
   const [loading, setLoading] = useState(true);
-  const [dialogState, setDialogState] = useState({
-    show: false,
-    status: '',
-    message: ''
-  });
+  const [collegeName, setCollegeName] = useState('');
   
   const [formData, setFormData] = useState({
     name: '',
     contactType: 'mobile',
-    contactValue: '',
+    contactValue: ''
   });
 
   const [touched, setTouched] = useState({
@@ -73,6 +78,12 @@ const ApplyForm = () => {
   const [errors, setErrors] = useState({
     name: '',
     contactValue: ''
+  });
+
+  const [dialogState, setDialogState] = useState({
+    show: false,
+    status: '',
+    message: ''
   });
 
   useEffect(() => {
@@ -90,56 +101,41 @@ const ApplyForm = () => {
     fetchCollegeDetails();
   }, [collegeId]);
 
-  const getPlaceholder = () => {
-    switch(formData.contactType) {
-      case 'mobile': return 'Enter your mobile number';
-      case 'instaId': return 'Enter your Instagram ID';
-      case 'email': return 'Enter your email address';
-      default: return '';
-    }
-  };
-
   const validateField = (name, value) => {
     if (name === 'name') {
       return getValidationMessage('name', value);
     }
-
     if (name === 'contactValue') {
       return getValidationMessage(formData.contactType, value);
     }
-
     return '';
-  };
-
-  const handleBlur = (e) => {
-    const { name } = e.target;
-    setTouched(prev => ({
-      ...prev,
-      [name]: true
-    }));
-
-    const error = validateField(name, formData[name]);
-    setErrors(prev => ({
-      ...prev,
-      [name]: error
-    }));
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+    // Sanitize input based on field type
+    let sanitizedValue = value;
+    if (name === 'name') {
+      sanitizedValue = value.replace(/[^a-zA-Z\s]/g, '');
+    } else if (formData.contactType === 'mobile') {
+      sanitizedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+    }
+
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: sanitizedValue
     }));
 
     if (touched[name]) {
-      const error = validateField(name, value);
+      const error = validateField(name, sanitizedValue);
       setErrors(prev => ({
         ...prev,
         [name]: error
       }));
     }
 
+    // Reset contact value when changing contact type
     if (name === 'contactType') {
       setFormData(prev => ({
         ...prev,
@@ -156,21 +152,30 @@ const ApplyForm = () => {
     }
   };
 
+  const handleBlur = (e) => {
+    const { name } = e.target;
+    setTouched(prev => ({
+      ...prev,
+      [name]: true
+    }));
+
+    const error = validateField(name, formData[name]);
+    setErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
+  };
+
   const validateForm = () => {
-    const nameError = validateField('name', formData.name);
-    const contactError = validateField('contactValue', formData.contactValue);
+    const newErrors = {
+      name: validateField('name', formData.name),
+      contactValue: validateField('contactValue', formData.contactValue)
+    };
 
-    setTouched({
-      name: true,
-      contactValue: true
-    });
+    setErrors(newErrors);
+    setTouched({ name: true, contactValue: true });
 
-    setErrors({
-      name: nameError,
-      contactValue: contactError
-    });
-
-    return !nameError && !contactError;
+    return !Object.values(newErrors).some(error => error);
   };
 
   const handleSubmit = async (e) => {
@@ -187,28 +192,23 @@ const ApplyForm = () => {
     });
 
     try {
-      const applicationData = {
-        name: formData.name,
-        contact_type: formData.contactType,
-        contact_value: formData.contactValue,
-      };
-
       await axios.post(
         `http://localhost:8000/api/colleges/${collegeId}/assignments/${assignmentId}/apply/`,
-        applicationData,
         {
-          headers: {
-            'Content-Type': 'application/json',
-          }
+          name: formData.name.trim(),
+          contact_type: formData.contactType,
+          contact_value: formData.contactValue.trim()
         }
       );
 
       setDialogState({
         show: true,
         status: 'success',
-        message: `You will get ${formData.contactType === 'mobile' ? 'a call' : 
-                 formData.contactType === 'instaId' ? 'messages on Instagram' : 'an email'} 
-                 from the assignment owner so you can connect in college and complete the writing work.`
+        message: `You will get ${
+          formData.contactType === 'mobile' ? 'a call' : 
+          formData.contactType === 'instaId' ? 'messages on Instagram' : 
+          'an email'
+        } from the assignment owner to connect and complete the writing work.`
       });
     } catch (error) {
       setDialogState({
@@ -241,8 +241,8 @@ const ApplyForm = () => {
       <NavigationBar />
       <div className="apply-form-page">
         <h1 className="college-name">{collegeName}</h1>
-        <form className="apply-form" onSubmit={handleSubmit}>
-          <div className="form-group">
+        <form className="apply-form" onSubmit={handleSubmit} noValidate>
+          <div className={`form-group ${touched.name && errors.name ? 'has-error' : ''}`}>
             <input
               type="text"
               name="name"
@@ -252,17 +252,22 @@ const ApplyForm = () => {
               onBlur={handleBlur}
               className={touched.name && errors.name ? 'invalid' : ''}
               required
+              aria-invalid={touched.name && errors.name ? 'true' : 'false'}
+              aria-describedby={errors.name ? 'name-error' : undefined}
             />
             {touched.name && errors.name && (
-              <div className="error-message">{errors.name}</div>
+              <div className="error-message" id="name-error" role="alert">
+                {errors.name}
+              </div>
             )}
           </div>
 
-          <div className="form-group contact-group">
+          <div className={`form-group contact-group ${touched.contactValue && errors.contactValue ? 'has-error' : ''}`}>
             <select
               name="contactType"
               value={formData.contactType}
               onChange={handleChange}
+              className="contact-select"
               required
             >
               <option value="mobile">Mobile Number</option>
@@ -273,33 +278,43 @@ const ApplyForm = () => {
             <input
               type={formData.contactType === 'email' ? 'email' : 'text'}
               name="contactValue"
-              placeholder={getPlaceholder()}
+              placeholder={
+                formData.contactType === 'mobile' ? 'Enter your mobile number' :
+                formData.contactType === 'instaId' ? 'Enter your Instagram ID' :
+                'Enter your email address'
+              }
               value={formData.contactValue}
               onChange={handleChange}
               onBlur={handleBlur}
               className={touched.contactValue && errors.contactValue ? 'invalid' : ''}
               required
+              aria-invalid={touched.contactValue && errors.contactValue ? 'true' : 'false'}
+              aria-describedby={errors.contactValue ? 'contact-error' : undefined}
             />
           </div>
           {touched.contactValue && errors.contactValue && (
-            <div className="error-message">{errors.contactValue}</div>
+            <div className="error-message" id="contact-error" role="alert">
+              {errors.contactValue}
+            </div>
           )}
 
           <button 
             type="submit" 
             className="confirm-button"
-            disabled={Object.keys(errors).some(key => errors[key])}
+            disabled={Object.keys(errors).some(key => errors[key]) || !touched.name || !touched.contactValue}
           >
             Confirm Application
           </button>
         </form>
 
         {dialogState.show && (
-          <div className="dialog-overlay">
+          <div className="dialog-overlay" role="dialog">
             <div className="dialog-box">
               {dialogState.status === 'loading' ? (
                 <>
-                  <div className="spinner"></div>
+                  <div className="spinner" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
                   <p>Submitting your application...</p>
                 </>
               ) : dialogState.status === 'success' ? (

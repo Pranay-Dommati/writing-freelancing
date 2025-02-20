@@ -14,12 +14,59 @@ const AssignmentForm = () => {
     status: '',
     message: ''
   });
+  
   const [formData, setFormData] = useState({
     name: '',
     pages: '',
     pricePerPage: '',
     email: ''
   });
+
+  const [touched, setTouched] = useState({
+    name: false,
+    pages: false,
+    pricePerPage: false,
+    email: false
+  });
+
+  const [errors, setErrors] = useState({
+    name: '',
+    pages: '',
+    pricePerPage: '',
+    email: ''
+  });
+
+  // Validation rules
+  const validateField = (name, value) => {
+    switch (name) {
+      case 'name':
+        if (!value.trim()) return 'Display name is required';
+        if (value.length < 2) return 'Name must be at least 2 characters';
+        if (value.length > 50) return 'Name must be less than 50 characters';
+        return '';
+
+      case 'pages':
+        if (!value) return 'Number of pages is required';
+        if (isNaN(value) || value < 1) return 'Please enter a valid number of pages';
+        if (value > 100) return 'Maximum 100 pages allowed';
+        return '';
+
+      case 'pricePerPage':
+        if (!value) return 'Price per page is required';
+        if (isNaN(value) || value < 1) return 'Please enter a valid price';
+        if (value > 1000) return 'Maximum price per page is $1000';
+        return '';
+
+      case 'email':
+        if (!value) return 'Email is required';
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(value)) return 'Please enter a valid email address';
+        return '';
+
+      default:
+        return '';
+    }
+  };
 
   useEffect(() => {
     const fetchCollegeDetails = async () => {
@@ -37,14 +84,64 @@ const AssignmentForm = () => {
   }, [collegeId]);
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+
+    // Validate on change if field has been touched
+    if (touched[name]) {
+      const error = validateField(name, value);
+      setErrors(prev => ({
+        ...prev,
+        [name]: error
+      }));
+    }
+  };
+
+  const handleBlur = (e) => {
+    const { name, value } = e.target;
+    setTouched(prev => ({
+      ...prev,
+      [name]: true
+    }));
+
+    const error = validateField(name, value);
+    setErrors(prev => ({
+      ...prev,
+      [name]: error
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    let isValid = true;
+
+    Object.keys(formData).forEach(key => {
+      const error = validateField(key, formData[key]);
+      newErrors[key] = error;
+      if (error) isValid = false;
     });
+
+    setErrors(newErrors);
+    setTouched({
+      name: true,
+      pages: true,
+      pricePerPage: true,
+      email: true
+    });
+
+    return isValid;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     setDialogState({
       show: true,
       status: 'loading',
@@ -95,54 +192,78 @@ const AssignmentForm = () => {
       <NavigationBar />
       <div className="assignment-form-page">
         <h1 className="college-name">{collegeName}</h1>
-        <form className="assignment-form" onSubmit={handleSubmit}>
-          <div className="form-group">
+        <form className="assignment-form" onSubmit={handleSubmit} noValidate>
+          <div className={`form-group ${touched.name && errors.name ? 'has-error' : ''}`}>
             <input
               type="text"
               name="name"
               placeholder="Enter a display name (any random name!)"
               value={formData.name}
               onChange={handleChange}
+              onBlur={handleBlur}
+              className={touched.name && errors.name ? 'invalid' : ''}
               required
             />
+            {touched.name && errors.name && (
+              <div className="error-message">{errors.name}</div>
+            )}
           </div>
 
-          <div className="form-group">
+          <div className={`form-group ${touched.pages && errors.pages ? 'has-error' : ''}`}>
             <input
               type="number"
               name="pages"
               placeholder="Approximate number of pages needed"
               value={formData.pages}
               onChange={handleChange}
+              onBlur={handleBlur}
+              className={touched.pages && errors.pages ? 'invalid' : ''}
               required
               min="1"
             />
+            {touched.pages && errors.pages && (
+              <div className="error-message">{errors.pages}</div>
+            )}
           </div>
 
-          <div className="form-group">
+          <div className={`form-group ${touched.pricePerPage && errors.pricePerPage ? 'has-error' : ''}`}>
             <input
               type="number"
               name="pricePerPage"
               placeholder="Amount you'll pay per page ($)"
               value={formData.pricePerPage}
               onChange={handleChange}
+              onBlur={handleBlur}
+              className={touched.pricePerPage && errors.pricePerPage ? 'invalid' : ''}
               required
               min="1"
             />
+            {touched.pricePerPage && errors.pricePerPage && (
+              <div className="error-message">{errors.pricePerPage}</div>
+            )}
           </div>
 
-          <div className="form-group">
+          <div className={`form-group ${touched.email && errors.email ? 'has-error' : ''}`}>
             <input
               type="email"
               name="email"
               placeholder="Your email (for notifications only, not visible on website)"
               value={formData.email}
               onChange={handleChange}
+              onBlur={handleBlur}
+              className={touched.email && errors.email ? 'invalid' : ''}
               required
             />
+            {touched.email && errors.email && (
+              <div className="error-message">{errors.email}</div>
+            )}
           </div>
 
-          <button type="submit" className="submit-button">
+          <button 
+            type="submit" 
+            className="submit-button"
+            disabled={Object.keys(errors).some(key => errors[key])}
+          >
             Post Assignment
           </button>
         </form>
