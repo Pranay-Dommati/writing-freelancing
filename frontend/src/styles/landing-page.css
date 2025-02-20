@@ -1,32 +1,40 @@
 .landing-page {
-    height: 100vh;
+    min-height: 110vh;
+    width: 100%;
     display: flex;
     flex-direction: column;
     background-color: #f5f5f5;
     position: relative;
     margin: 0;
     padding: 0;
+    overflow-x: hidden;
 }
 
 h1 {
     color: #333;
     font-size: 2.5rem;
     text-align: center;
-    position: absolute;
-    top: 100px;
+    position: fixed;
+    top: 80px;
     left: 50%;
     transform: translateX(-50%);
     margin: 0;
     width: 100%;
+    padding: 0 15px;
+    box-sizing: border-box;
+    z-index: 2;
 }
 
 .search-bar-container {
-    width: 50%;
+    width: 90%;
     max-width: 600px;
-    position: fixed;
-    top: 50%;
+    position: absolute;
+    top: 50vh;
     left: 50%;
     transform: translate(-50%, -50%);
+    padding: 0 15px;
+    box-sizing: border-box;
+    z-index: 1;
 }
 
 .search-input-wrapper {
@@ -92,134 +100,10 @@ h1 {
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 1.8rem;
-        top: 80px;
-        padding: 0 15px;
-    }
-    
     .search-bar-container {
         width: 85%;
         max-width: 300px;
-        padding: 0 15px;
-    }
-    
-    .search-bar {
-        font-size: 0.95rem;
-    }
-    
-    .search-icon {
-        left: 12px;
-        font-size: 0.9rem;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 320px) {
-    h1 {
-        top: 60px;
-        font-size: 1.6rem;
-    }
-    
-    .search-bar-container {
-        width: 90%;
-        max-width: 280px;
-        padding: 0 10px;
-    }
-}
-
-/* Add padding for footer */
-.landing-page {
-    padding-bottom: 80px;
-}
-
-
-.landing-page {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #f5f5f5;
-    position: relative;
-    padding-top: 56px; /* Height of navbar */
-}
-
-h1 {
-    color: #333;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-
-
-.landing-page {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #f5f5f5;
-    position: relative;
-    margin: 0;
-    padding: 0;
-}
-
-h1 {
-    color: #333;
-    font-size: 2.5rem;
-    text-align: center;
-    position: absolute;
-    top: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    width: 100%;
-}
-
-
-
-
-.landing-page {
-    min-height: 100vh;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #f5f5f5;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-}
-
-h1 {
-    color: #333;
-    font-size: 2.5rem;
-    text-align: center;
-    position: fixed; /* Changed from absolute to fixed */
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    width: 100%;
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-
-.search-bar-container {
-    width: 90%;
-    max-width: 600px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .search-bar-container {
-        width: 85%;
-        max-width: 300px;
+        top: 50vh;
     }
     
     .search-bar {
@@ -236,165 +120,17 @@ h1 {
 }
 
 /* Extra small devices */
-@media (max-width: 320px) {
-    .search-bar-container {
-        width: 90%;
-        max-width: 280px;
-    }
-}
-
-
-.landing-page {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #f5f5f5;
-    position: fixed;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-h1 {
-    color: #333;
-    font-size: 2.5rem;
-    text-align: center;
-    position: fixed;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    width: 100%;
-    padding: 0 15px;
-    box-sizing: border-box;
-}
-
-.search-bar-container {
-    width: 90%;
-    max-width: 600px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0 15px;
-    box-sizing: border-box;
-    z-index: 1;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
+@media (max-width: 390px) {
     .search-bar-container {
         width: 85%;
-        max-width: 300px;
-    }
-    
-    .search-bar {
-        width: 100%;
-        padding: 10px 40px 10px 35px;
-        font-size: 0.95rem;
-        box-sizing: border-box;
-    }
-    
-    h1 {
-        font-size: 1.8rem;
-        top: 70px;
-    }
-}
-
-/* Extra small devices */
-@media screen and (max-width: 390px) {
-    .search-bar-container {
-        width: 90%;
         max-width: 280px;
         padding: 0 10px;
     }
-
+    
     h1 {
         font-size: 1.6rem;
         top: 60px;
     }
-}
-
-
-
-.landing-page {
-    width: 100%;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background-color: #f5f5f5;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-.search-bar-container {
-    width: 90%;
-    max-width: 600px;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0 15px;
-    box-sizing: border-box;
-    z-index: 1;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .search-bar-container {
-        width: 85%;
-        max-width: 300px;
-    }
-    
-    .search-bar {
-        width: 100%;
-        padding: 10px 40px 10px 35px;
-        font-size: 0.95rem;
-        box-sizing: border-box;
-    }
-}
-
-/* Extra small devices */
-@media screen and (max-width: 390px) {
-    .search-bar-container {
-        width: 85%;
-        max-width: 280px;
-        padding: 0 10px;
-    }
-}
-
-
-
-.landing-page {
-    min-height: 110vh; /* Increased from 100vh to allow scrolling */
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #f5f5f5;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-    overflow-y: auto; /* Allow vertical scroll */
-}
-
-.search-bar-container {
-    width: 90%;
-    max-width: 600px;
-    position: absolute; /* Changed from fixed to allow scrolling */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0 15px;
-    box-sizing: border-box;
-    z-index: 1;
 }
 
 /* Update root level styles in index.css */
@@ -404,153 +140,12 @@ html, body {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    overflow-y: auto; /* Allow vertical scroll */
+    overflow-y: auto;
 }
 
 #root {
     width: 100%;
     height: 100%;
     overflow-x: hidden;
-    overflow-y: auto; /* Allow vertical scroll */
+    overflow-y: auto;
 }
-
-/* Rest of your existing styles... */
-
-
-
-.landing-page {
-    min-height: 110vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #f5f5f5;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-}
-
-h1 {
-    color: #333;
-    font-size: 2.5rem;
-    text-align: center;
-    position: fixed;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    width: 100%;
-    padding: 0 15px;
-    box-sizing: border-box;
-    z-index: 2;
-}
-
-.search-bar-container {
-    width: 90%;
-    max-width: 600px;
-    position: fixed;
-    top: calc(50vh - 30px); /* Center in viewport, adjusted for visual balance */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0 15px;
-    box-sizing: border-box;
-    z-index: 1;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .search-bar-container {
-        width: 85%;
-        max-width: 300px;
-        top: calc(50vh - 20px); /* Slightly adjusted for mobile */
-    }
-    
-    h1 {
-        font-size: 1.8rem;
-        top: 70px;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 390px) {
-    .search-bar-container {
-        width: 85%;
-        max-width: 280px;
-    }
-    
-    h1 {
-        font-size: 1.6rem;
-        top: 60px;
-    }
-}
-
-
-
-.landing-page {
-    min-height: 110vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #f5f5f5;
-    position: relative;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-}
-
-h1 {
-    color: #333;
-    font-size: 2.5rem;
-    text-align: center;
-    position: fixed;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    margin: 0;
-    width: 100%;
-    padding: 0 15px;
-    box-sizing: border-box;
-    z-index: 2;
-}
-
-.search-bar-container {
-    width: 90%;
-    max-width: 600px;
-    position: absolute; /* Changed from fixed to allow scrolling */
-    top: 50vh; /* Changed to vh units */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 0 15px;
-    box-sizing: border-box;
-    z-index: 1;
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .search-bar-container {
-        width: 85%;
-        max-width: 300px;
-        top: 50vh; /* Consistent with desktop */
-    }
-    
-    h1 {
-        font-size: 1.8rem;
-        top: 70px;
-    }
-}
-
-/* Extra small devices */
-@media (max-width: 390px) {
-    .search-bar-container {
-        width: 85%;
-        max-width: 280px;
-        padding: 0 10px;
-    }
-    
-    h1 {
-        font-size: 1.6rem;
-        top: 60px;
-    }
-}
-
-
