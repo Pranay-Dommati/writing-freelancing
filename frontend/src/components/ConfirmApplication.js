@@ -76,82 +76,136 @@ const ConfirmApplication = () => {
   return (
     <>
       <NavigationBar />
-      <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-4">
-        <div className="bg-white p-8 rounded-xl shadow-2xl max-w-md w-full transform transition-all duration-300 hover:shadow-lg">
-          {/* Header Section */}
-          <div className="text-center mb-8">
-            <div className="w-16 h-1 bg-blue-500 mx-auto rounded-full"></div>
-          </div>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-100">
+        {/* Container with responsive padding */}
+        <div className="container mx-auto px-4 py-8 md:py-16">
+          
+          {/* Card Container with max-width for larger screens */}
+          <div className="max-w-2xl mx-auto">
+            {/* Main Card */}
+            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+              {/* Header Section */}
+              <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-8 text-white">
+ 
+                <p className="text-blue-100 text-center mt-2">
+                  Please review the application details below
+                </p>
+              </div>
 
-          {/* Assignment Info */}
-          <div className="mb-8">
-            <p className="text-gray-700 text-lg mb-2">
-              Someone has applied for your assignment:
-            </p>
-            <p className="text-blue-600 font-semibold text-xl p-3 bg-blue-50 rounded-lg">
-              {assignmentName}
-            </p>
-          </div>
+              {/* Content Section */}
+              <div className="p-6 md:p-8">
+                {/* Assignment Info Card */}
+                <div className="bg-blue-50 rounded-xl p-6 mb-8 border-2 border-blue-100">
+                  <h2 className="text-sm uppercase tracking-wider text-blue-600 font-semibold mb-2">
+                    Assignment Details
+                  </h2>
+                  <p className="text-xl md:text-2xl font-bold text-gray-800">
+                    {assignmentName}
+                  </p>
+                </div>
 
-          {/* Action Info */}
-          <div className="bg-gray-50 p-4 rounded-lg mb-8">
-            <p className="text-gray-700 font-medium mb-3">Please choose an action:</p>
-            <ul className="space-y-3 text-gray-600">
-              <li className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span>
-                  <strong className="text-gray-700">Confirm:</strong> You will receive 
-                  the writer's details via email, and the assignment will be removed 
-                  from the website.
-                </span>
-              </li>
-              <li className="flex items-start">
-                <span className="text-red-500 mr-2">×</span>
-                <span>
-                  <strong className="text-gray-700">Cancel:</strong> The application 
-                  will be closed, and the assignment will remain active on the website.
-                </span>
-              </li>
-            </ul>
-          </div>
+                {/* Action Info Section */}
+                <div className="space-y-6 mb-8">
+                  <h3 className="text-lg font-semibold text-gray-800">
+                    Available Actions
+                  </h3>
+                  
+                  {/* Confirm Option Card */}
+                  <div className="bg-green-50 rounded-lg p-4 border border-green-100">
+                    <div className="flex items-start space-x-3">
+                      <div className="flex-shrink-0">
+                        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-green-100">
+                          <span className="text-green-600 text-xl">✓</span>
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="text-green-800 font-medium mb-1">Confirm Application</h4>
+                        <p className="text-green-700 text-sm">
+                          Accept the application and receive writer's details via email. 
+                          The assignment will be removed from the website.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button 
-              className="flex-1 bg-green-500 text-white py-3 px-6 rounded-lg 
-                         font-medium transform transition-all duration-200
-                         hover:bg-green-600 hover:scale-105 
-                         focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50
-                         disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={() => handleAction('confirm')}
-              disabled={processing}
-            >
-              <span className="flex items-center justify-center">
-                ✅ Confirm
-              </span>
-            </button>
-            <button 
-              className="flex-1 bg-red-500 text-white py-3 px-6 rounded-lg 
-                         font-medium transform transition-all duration-200
-                         hover:bg-red-600 hover:scale-105
-                         focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50
-                         disabled:opacity-50 disabled:cursor-not-allowed"
-              onClick={() => handleAction('cancel')}
-              disabled={processing}
-            >
-              <span className="flex items-center justify-center">
-                ❌ Cancel
-              </span>
-            </button>
-          </div>
+                  {/* Cancel Option Card */}
+                  <div className="bg-red-50 rounded-lg p-4 border border-red-100">
+                    <div className="flex items-start space-x-3">
+                      <div className="flex-shrink-0">
+                        <span className="flex items-center justify-center w-8 h-8 rounded-full bg-red-100">
+                          <span className="text-red-600 text-xl">×</span>
+                        </span>
+                      </div>
+                      <div>
+                        <h4 className="text-red-800 font-medium mb-1">Cancel Application</h4>
+                        <p className="text-red-700 text-sm">
+                          Decline the application and keep the assignment active on the website.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-          {/* Processing Indicator */}
-          {processing && (
-            <div className="mt-6 text-center">
-              <div className="inline-block animate-spin mr-2">⚙️</div>
-              <span className="text-gray-600">Processing your request...</span>
+                {/* Action Buttons */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <button 
+                    onClick={() => handleAction('confirm')}
+                    disabled={processing}
+                    className="flex items-center justify-center px-6 py-3 rounded-lg
+                      bg-gradient-to-r from-green-500 to-green-600 
+                      text-white font-semibold
+                      transform transition-all duration-200
+                      hover:from-green-600 hover:to-green-700
+                      focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50
+                      disabled:opacity-50 disabled:cursor-not-allowed
+                      shadow-lg hover:shadow-xl"
+                  >
+                    {processing ? (
+                      <span className="inline-flex items-center">
+                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                        </svg>
+                        Processing...
+                      </span>
+                    ) : (
+                      <span>Confirm Application</span>
+                    )}
+                  </button>
+                  
+                  <button 
+                    onClick={() => handleAction('cancel')}
+                    disabled={processing}
+                    className="flex items-center justify-center px-6 py-3 rounded-lg
+                      bg-gradient-to-r from-red-500 to-red-600
+                      text-white font-semibold
+                      transform transition-all duration-200
+                      hover:from-red-600 hover:to-red-700
+                      focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50
+                      disabled:opacity-50 disabled:cursor-not-allowed
+                      shadow-lg hover:shadow-xl"
+                  >
+                    {processing ? 'Processing...' : 'Cancel Application'}
+                  </button>
+                </div>
+              </div>
             </div>
-          )}
+
+            {/* Processing Overlay */}
+            {processing && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg p-6 shadow-xl max-w-sm w-full mx-4">
+                  <div className="flex items-center justify-center space-x-3">
+                    <svg className="animate-spin h-8 w-8 text-blue-600" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"/>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"/>
+                    </svg>
+                    <p className="text-gray-700 font-medium">Processing your request...</p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
     </>
