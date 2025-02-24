@@ -1,3 +1,9 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Your existing styles */
 * {
   margin: 0;
   padding: 0;
