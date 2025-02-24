@@ -48,7 +48,7 @@ const ConfirmApplication = () => {
     return (
       <>
         <NavigationBar />
-        <div className="loading-container">Loading...</div>
+        <div className="loading-container">⏳ Loading...</div>
       </>
     );
   }
@@ -57,7 +57,7 @@ const ConfirmApplication = () => {
     return (
       <>
         <NavigationBar />
-        <div className="error-container">{error}</div>
+        <div className="error-container">⚠️ {error}</div>
       </>
     );
   }
@@ -67,8 +67,13 @@ const ConfirmApplication = () => {
       <NavigationBar />
       <div className="confirm-application-page">
         <div className="confirmation-box">
-          <h1>Assignment Application</h1>
+          <h1>Confirm Your Application</h1>
           <p>Someone has applied for your assignment: <strong>{assignmentName}</strong></p>
+          <p>Please choose an action:</p>
+          <ul className="action-details">
+            <li><strong>✅ Confirm:</strong> You will receive the writer's details via email, and the assignment will be removed from the website.</li>
+            <li><strong>❌ Cancel:</strong> The application will be closed, and the assignment will remain active on the website.</li>
+          </ul>
           
           <div className="buttons-container">
             <button 
@@ -87,7 +92,7 @@ const ConfirmApplication = () => {
             </button>
           </div>
 
-          {processing && <div className="processing-message">Processing...</div>}
+          {processing && <div className="processing-message">⏳ Processing...</div>}
         </div>
       </div>
     </>
