@@ -47,8 +47,11 @@ const ConfirmApplication = () => {
     return (
       <>
         <NavigationBar />
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-          <div className="text-center text-gray-600">Loading...</div>
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+          <div className="animate-pulse text-xl text-gray-600">
+            <span className="inline-block animate-spin mr-2">⌛</span>
+            Loading...
+          </div>
         </div>
       </>
     );
@@ -58,8 +61,13 @@ const ConfirmApplication = () => {
     return (
       <>
         <NavigationBar />
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-          <div className="text-center text-red-600">{error}</div>
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-gray-50 to-gray-100">
+          <div className="bg-red-50 p-6 rounded-lg shadow-md">
+            <div className="flex items-center text-red-700">
+              <span className="text-2xl mr-2">⚠️</span>
+              <span className="text-lg font-semibold">{error}</span>
+            </div>
+          </div>
         </div>
       </>
     );
@@ -68,34 +76,82 @@ const ConfirmApplication = () => {
   return (
     <>
       <NavigationBar />
-      <div className="flex justify-center items-center min-h-screen bg-gray-100">
-        <div className="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-          <h1 className="text-2xl font-bold text-gray-800 mb-4">Assignment Application</h1>
-          <p className="text-gray-600 mb-4">Someone has applied for your assignment: <strong>{assignmentName}</strong></p>
-          <p className="text-gray-600 mb-4">Please choose an action:</p>
-          <ul className="text-left text-gray-600 mb-4">
-            <li><strong>Confirm:</strong> You will receive the writer's details via email, and the assignment will be removed from the website.</li>
-            <li><strong>Cancel:</strong> The application will be closed, and the assignment will remain active on the website.</li>
-          </ul>
-          
-          <div className="flex justify-center gap-4">
+      <div className="flex justify-center items-center min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 p-4">
+        <div className="bg-white p-8 rounded-xl shadow-2xl max-w-md w-full transform transition-all duration-300 hover:shadow-lg">
+          {/* Header Section */}
+          <div className="text-center mb-8">
+            <div className="w-16 h-1 bg-blue-500 mx-auto rounded-full"></div>
+          </div>
+
+          {/* Assignment Info */}
+          <div className="mb-8">
+            <p className="text-gray-700 text-lg mb-2">
+              Someone has applied for your assignment:
+            </p>
+            <p className="text-blue-600 font-semibold text-xl p-3 bg-blue-50 rounded-lg">
+              {assignmentName}
+            </p>
+          </div>
+
+          {/* Action Info */}
+          <div className="bg-gray-50 p-4 rounded-lg mb-8">
+            <p className="text-gray-700 font-medium mb-3">Please choose an action:</p>
+            <ul className="space-y-3 text-gray-600">
+              <li className="flex items-start">
+                <span className="text-green-500 mr-2">✓</span>
+                <span>
+                  <strong className="text-gray-700">Confirm:</strong> You will receive 
+                  the writer's details via email, and the assignment will be removed 
+                  from the website.
+                </span>
+              </li>
+              <li className="flex items-start">
+                <span className="text-red-500 mr-2">×</span>
+                <span>
+                  <strong className="text-gray-700">Cancel:</strong> The application 
+                  will be closed, and the assignment will remain active on the website.
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-col sm:flex-row justify-center gap-4">
             <button 
-              className="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 disabled:opacity-50"
+              className="flex-1 bg-green-500 text-white py-3 px-6 rounded-lg 
+                         font-medium transform transition-all duration-200
+                         hover:bg-green-600 hover:scale-105 
+                         focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50
+                         disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={() => handleAction('confirm')}
               disabled={processing}
             >
-              ✅ Confirm
+              <span className="flex items-center justify-center">
+                ✅ Confirm
+              </span>
             </button>
             <button 
-              className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 disabled:opacity-50"
+              className="flex-1 bg-red-500 text-white py-3 px-6 rounded-lg 
+                         font-medium transform transition-all duration-200
+                         hover:bg-red-600 hover:scale-105
+                         focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50
+                         disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={() => handleAction('cancel')}
               disabled={processing}
             >
-              ❌ Cancel
+              <span className="flex items-center justify-center">
+                ❌ Cancel
+              </span>
             </button>
           </div>
 
-          {processing && <div className="text-gray-600 mt-4">Processing...</div>}
+          {/* Processing Indicator */}
+          {processing && (
+            <div className="mt-6 text-center">
+              <div className="inline-block animate-spin mr-2">⚙️</div>
+              <span className="text-gray-600">Processing your request...</span>
+            </div>
+          )}
         </div>
       </div>
     </>
