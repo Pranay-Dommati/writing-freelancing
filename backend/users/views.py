@@ -185,8 +185,8 @@ class ConfirmApplicationView(APIView):
                 application.save()
                 
                 # Remove assignment from website
-                application.assignment.is_active = False
-                application.assignment.save()
+                assignment = application.assignment
+                assignment.delete()
                 
                 # Send email with writer's details
                 subject = 'Writer Details for Your Assignment'
@@ -207,7 +207,7 @@ class ConfirmApplicationView(APIView):
                     subject,
                     message,
                     settings.EMAIL_HOST_USER,
-                    [application.assignment.email],
+                    [assignment.email],
                     fail_silently=False,
                 )
                 
