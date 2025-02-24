@@ -86,7 +86,7 @@ const ConfirmApplication = () => {
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
               {/* Header Section */}
               <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-8 text-white">
- 
+
                 <p className="text-blue-100 text-center mt-2">
                   Please review the application details below
                 </p>
@@ -121,8 +121,8 @@ const ConfirmApplication = () => {
                       <div>
                         <h4 className="text-green-800 font-medium mb-1">Confirm Application</h4>
                         <p className="text-green-700 text-sm">
-                          Accept the application and receive writer's details via email. 
-                          The assignment will be removed from the website.
+                        Accept the application and receive the writer's details via email. 
+                        The assignment will be deactivated on the website and removed from visibility for users.
                         </p>
                       </div>
                     </div>
