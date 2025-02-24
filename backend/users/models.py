@@ -1,4 +1,5 @@
 from django.db import models
+import secrets
 
 class College(models.Model):
     name = models.CharField(max_length=500, unique=True, db_index=True)
@@ -33,13 +34,17 @@ class Assignment(models.Model):
         
 class Application(models.Model):
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE, related_name='applications')
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=100)
     contact_type = models.CharField(max_length=20)
-    contact_value = models.CharField(max_length=200)
+    contact_value = models.CharField(max_length=100)
+    token = models.CharField(max_length=64, unique=True, null=True)
+    is_confirmed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"Application by {self.name} for {self.assignment.name}"
+    def save(self, *args, **kwargs):
+        if not self.token:
+            self.token = secrets.token_hex(32)  # Generate a 64-character token
+        super().save(*args, **kwargs)
 
     class Meta:
         ordering = ['-created_at']

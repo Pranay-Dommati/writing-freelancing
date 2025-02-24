@@ -12,7 +12,7 @@ class CollegeSearchView(generics.ListAPIView):
 
     def get_queryset(self):
         query = self.request.query_params.get('q', '')
-        if query:
+        if (query):
             return College.objects.filter(
                 name__icontains=query
             ).order_by('name')[:10]  # Limit to 10 results
@@ -60,7 +60,6 @@ class ApplicationCreateView(generics.CreateAPIView):
 
     def create(self, request, *args, **kwargs):
         assignment_id = kwargs.get('assignment_id')
-        college_id = kwargs.get('college_id')
         
         # Add assignment to request data
         data = {
@@ -76,23 +75,18 @@ class ApplicationCreateView(generics.CreateAPIView):
         assignment = Assignment.objects.get(id=assignment_id)
         
         # Send email to assignment owner
-        subject = f'New Application for Your Assignment: {assignment.name}'
+        confirmation_link = f"http://localhost:3000/confirm-application/{application.token}"
+        subject = 'New Application for Your Assignment'
         message = f"""
         Hello,
 
-        Someone has applied to write your assignment!
+        Someone has applied for your assignment.
 
-        Assignment Details:
-        - Name: {assignment.name}
-        - Pages: {assignment.pages}
-        - Pay per page: ${assignment.price_per_page}
+        Please click the link below to navigate to a page where you can confirm or cancel the application:
+        {confirmation_link}
 
-        Applicant Details:
-        - Name: {application.name}
-        - Contact via: {application.contact_type}
-        - Contact info: {application.contact_value}
-
-        You can connect with them through their provided contact information.
+        If you confirm, the writer's details will be sent to your email and the assignment will be removed from the website.
+        If you cancel, the application will be closed and the assignment will remain active on the website.
 
         Best regards,
         Your Writing Platform Team
@@ -108,8 +102,7 @@ class ApplicationCreateView(generics.CreateAPIView):
             )
         except Exception as e:
             print(f"Error sending email: {e}")
-            # Continue even if email fails
-        
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
     
@@ -150,4 +143,89 @@ class FeedbackView(APIView):
             return Response(
                 {'detail': 'Error sending feedback'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class ConfirmApplicationView(APIView):
+    def get(self, request, token):
+        try:
+            application = Application.objects.select_related('assignment').get(token=token)
+            
+            if application.is_confirmed:
+                return Response(
+                    {"error": "This application has already been processed"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+                
+            return Response({
+                "assignment_name": application.assignment.name,
+                "is_valid": True
+            })
+            
+        except Application.DoesNotExist:
+            return Response(
+                {"error": "Invalid or expired token"},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+    def post(self, request, token):
+        try:
+            application = Application.objects.select_related('assignment').get(token=token)
+            
+            if application.is_confirmed:
+                return Response(
+                    {"error": "This application has already been processed"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            action = request.data.get('action')
+            
+            if action == 'confirm':
+                # Mark as confirmed
+                application.is_confirmed = True
+                application.save()
+                
+                # Remove assignment from website
+                application.assignment.is_active = False
+                application.assignment.save()
+                
+                # Send email with writer's details
+                subject = 'Writer Details for Your Assignment'
+                message = f"""
+                Hello,
+
+                Here are the details of the writer who applied for your assignment:
+
+                Name: {application.name}
+                Contact Method: {application.contact_type}
+                Contact Details: {application.contact_value}
+
+                Best regards,
+                Your Writing Platform Team
+                """
+                
+                send_mail(
+                    subject,
+                    message,
+                    settings.EMAIL_HOST_USER,
+                    [application.assignment.email],
+                    fail_silently=False,
+                )
+                
+                return Response({"message": "Application confirmed successfully"})
+                
+            elif action == 'cancel':
+                # Just expire the token
+                application.token = None
+                application.save()
+                return Response({"message": "Application cancelled successfully"})
+                
+            return Response(
+                {"error": "Invalid action"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+            
+        except Application.DoesNotExist:
+            return Response(
+                {"error": "Invalid or expired token"},
+                status=status.HTTP_404_NOT_FOUND
             )
