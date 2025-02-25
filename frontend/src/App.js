@@ -9,7 +9,8 @@ import AssignmentsList from './components/AssignmentsList';
 import ApplyForm from './components/ApplyForm';
 import AboutPage from './components/AboutPage';
 import FeedbackForm from './components/FeedbackForm';
-import ConfirmApplication from './components/ConfirmApplication'; // Add this import
+import ConfirmApplication from './components/ConfirmApplication';
+import TermsAndConditions from './components/TermsAndConditions';
 import Footer from './components/Footer';
 
 function App() {
@@ -25,7 +26,8 @@ function App() {
             <Route path="/assignments" element={<AssignmentsList />} />
             <Route path="/college/:collegeId/assignments/:assignmentId/apply" element={<ApplyForm />} />
             <Route path="/feedback" element={<FeedbackForm />} />
-            <Route path="/confirm-application/:token" element={<ConfirmApplication />} /> {/* Add this route */}
+            <Route path="/confirm-application/:token" element={<ConfirmApplication />} />
+            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           </Routes>
         </div>
         <Footer />
