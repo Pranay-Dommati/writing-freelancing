@@ -114,12 +114,32 @@ const ApplyForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     
-    // Sanitize input based on field type
+    if (name === 'contactType') {
+      // Immediately update contact type and reset related state
+      setFormData(prev => ({
+        ...prev,
+        contactType: value,
+        contactValue: '' // Reset contact value when type changes
+      }));
+      setTouched(prev => ({
+        ...prev,
+        contactValue: false
+      }));
+      setErrors(prev => ({
+        ...prev,
+        contactValue: ''
+      }));
+      return; // Exit early after handling contact type change
+    }
+    
+    // Handle other input changes
     let sanitizedValue = value;
     if (name === 'name') {
       sanitizedValue = value.replace(/[^a-zA-Z\s]/g, '');
-    } else if (formData.contactType === 'mobile') {
-      sanitizedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+    } else if (name === 'contactValue') {
+      if (formData.contactType === 'mobile') {
+        sanitizedValue = value.replace(/[^0-9]/g, '').slice(0, 10);
+      }
     }
 
     setFormData(prev => ({
@@ -132,22 +152,6 @@ const ApplyForm = () => {
       setErrors(prev => ({
         ...prev,
         [name]: error
-      }));
-    }
-
-    // Reset contact value when changing contact type
-    if (name === 'contactType') {
-      setFormData(prev => ({
-        ...prev,
-        contactValue: ''
-      }));
-      setTouched(prev => ({
-        ...prev,
-        contactValue: false
-      }));
-      setErrors(prev => ({
-        ...prev,
-        contactValue: ''
       }));
     }
   };
