@@ -7,8 +7,11 @@ const SearchBar = () => {
     const [searchValue, setSearchValue] = useState('');
     const [suggestions, setSuggestions] = useState([]);
     const [showSuggestions, setShowSuggestions] = useState(false);
-    const navigate = useNavigate();
+    const [showCollegeForm, setShowCollegeForm] = useState(false);
+    const [collegeName, setCollegeName] = useState('');
+    const [cityName, setCityName] = useState('');
     const suggestionRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchSuggestions = async () => {
@@ -39,6 +42,23 @@ const SearchBar = () => {
         setSuggestions([]);
         setShowSuggestions(false);
         navigate(`/college/${college.id}`);
+    };
+
+    const handleCollegeFormSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await axios.post('http://localhost:8000/api/send-college-request/', {
+                collegeName,
+                cityName
+            });
+            alert('Your request has been submitted successfully!');
+            setCollegeName('');
+            setCityName('');
+            setShowCollegeForm(false);
+        } catch (error) {
+            console.error('Error submitting college request:', error);
+            alert('There was an error submitting your request. Please try again.');
+        }
     };
 
     useEffect(() => {
@@ -76,27 +96,59 @@ const SearchBar = () => {
             </div>
 
             {showSuggestions && suggestions.length > 0 && (
-    <ul className="suggestions-list">
-        {suggestions.map((college) => (
-            <li key={college.id} onClick={() => handleSuggestionClick(college)}>
-                <span 
-                    className="college-name-text"
-                    ref={(el) => {
-                        if (el) {
-                            const shouldScroll = el.scrollWidth > el.clientWidth;
-                            el.setAttribute('data-scroll', shouldScroll);
-                        }
-                    }}
-                >
-                    {college.name}
-                </span>
-            </li>
-        ))}
-    </ul>
-)}
+                <ul className="suggestions-list">
+                    {suggestions.map((college) => (
+                        <li key={college.id} onClick={() => handleSuggestionClick(college)}>
+                            <span 
+                                className="college-name-text"
+                                ref={(el) => {
+                                    if (el) {
+                                        const shouldScroll = el.scrollWidth > el.clientWidth;
+                                        el.setAttribute('data-scroll', shouldScroll);
+                                    }
+                                }}
+                            >
+                                {college.name}
+                            </span>
+                        </li>
+                    ))}
+                </ul>
+            )}
+
+            {showSuggestions && suggestions.length === 0 && (
+                <div className="no-suggestions">
+                    <p>Can't find your college?</p>
+                    <button onClick={() => setShowCollegeForm(true)}>Submit College Request</button>
+                </div>
+            )}
+
+            {showCollegeForm && (
+                <form className="college-form" onSubmit={handleCollegeFormSubmit}>
+                    <div className="form-group">
+                        <label htmlFor="collegeName">College Name</label>
+                        <input
+                            type="text"
+                            id="collegeName"
+                            value={collegeName}
+                            onChange={(e) => setCollegeName(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="cityName">City Name</label>
+                        <input
+                            type="text"
+                            id="cityName"
+                            value={cityName}
+                            onChange={(e) => setCityName(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <button type="submit" className="submit-button">Submit</button>
+                </form>
+            )}
         </div>
     );
 };
-
 
 export default SearchBar;

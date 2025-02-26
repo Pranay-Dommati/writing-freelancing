@@ -1,6 +1,7 @@
 from django.urls import path
 from .views import CollegeSearchView, CollegeDetailView, AssignmentCreateView, \
-            CollegeAssignmentsView, ApplicationCreateView, FeedbackView, ConfirmApplicationView
+            CollegeAssignmentsView, ApplicationCreateView, FeedbackView, ConfirmApplicationView, \
+            CollegeRequestView
 
 urlpatterns = [
     path('search/', CollegeSearchView.as_view(), name='college-search'),
@@ -12,4 +13,5 @@ urlpatterns = [
          name='application-create'),
     path('feedback/', FeedbackView.as_view(), name='feedback'),
     path('confirm-application/<str:token>/', ConfirmApplicationView.as_view(), name='confirm-application'),
+    path('send-college-request/', CollegeRequestView.as_view(), name='send-college-request'),
 ]

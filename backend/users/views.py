@@ -7,6 +7,27 @@ from .serializers import CollegeSerializer, AssignmentSerializer, ApplicationSer
 from django.db.models import Q
 from rest_framework.views import APIView
 
+
+class CollegeRequestView(APIView):
+    def post(self, request):
+        college_name = request.data.get('collegeName')
+        city_name = request.data.get('cityName')
+        
+        if not college_name or not city_name:
+            return Response({'error': 'College name and city name are required.'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        subject = 'New College Request'
+        message = f'College Name: {college_name}\nCity Name: {city_name}'
+        email_from = settings.EMAIL_HOST_USER
+        recipient_list = ['getwritingdone1@gmail.com']
+        
+        try:
+            send_mail(subject, message, email_from, recipient_list)
+            return Response({'message': 'Request submitted successfully.'}, status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+        
 class CollegeSearchView(generics.ListAPIView):
     serializer_class = CollegeSerializer
 
