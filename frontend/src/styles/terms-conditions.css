@@ -1,0 +1,55 @@
+.tc-page {
+  padding: 40px 20px;
+  background-color: #f8f9fa;
+  min-height: calc(100vh - 64px); /* Assuming navbar is 64px high */
+}
+
+.tc-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative; /* Use relative positioning to keep in document flow */
+}
+
+.tc-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.tc-section {
+  margin-bottom: 30px;
+}
+
+.tc-section-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.tc-list {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.tc-list li {
+  margin-bottom: 10px;
+  line-height: 1.6;
+  color: #555;
+}
+
+.tc-nested-list {
+  list-style-type: circle;
+  padding-left: 20px;
+  margin-top: 8px;
+}
+
+.tc-nested-list li {
+  margin-bottom: 6px;
+}
