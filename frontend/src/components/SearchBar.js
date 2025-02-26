@@ -10,6 +10,12 @@ const SearchBar = () => {
     const [showCollegeForm, setShowCollegeForm] = useState(false);
     const [collegeName, setCollegeName] = useState('');
     const [cityName, setCityName] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [dialogState, setDialogState] = useState({
+        show: false,
+        status: '',
+        message: ''
+    });
     const suggestionRef = useRef(null);
     const navigate = useNavigate();
 
@@ -46,19 +52,34 @@ const SearchBar = () => {
 
     const handleCollegeFormSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         try {
             await axios.post('http://localhost:8000/api/send-college-request/', {
                 collegeName,
                 cityName
             });
-            alert('Your request has been submitted successfully!');
-            setCollegeName('');
-            setCityName('');
-            setShowCollegeForm(false);
+            setLoading(false);
+            setDialogState({
+                show: true,
+                status: 'success',
+                message: 'Request Submitted Successfully!'
+            });
         } catch (error) {
             console.error('Error submitting college request:', error);
-            alert('There was an error submitting your request. Please try again.');
+            setLoading(false);
+            setDialogState({
+                show: true,
+                status: 'error',
+                message: 'Error submitting request. Please try again.'
+            });
         }
+    };
+
+    const handleCloseDialog = () => {
+        setDialogState({ show: false, status: '', message: '' });
+        setShowCollegeForm(false);
+        setSearchValue('');
+        setSuggestions([]);
     };
 
     useEffect(() => {
@@ -74,26 +95,28 @@ const SearchBar = () => {
 
     return (
         <div className="search-bar-container" ref={suggestionRef}>
-            <div className="search-input-wrapper">
-                <svg 
-                    className="search-icon" 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    width="16" 
-                    height="16" 
-                    fill="currentColor" 
-                    viewBox="0 0 16 16"
-                >
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                </svg>
-                <span className="search-separator">|</span>
-                <input
-                    type="text"
-                    className="search-bar"
-                    placeholder="Enter College/School"
-                    value={searchValue}
-                    onChange={handleInputChange}
-                />
-            </div>
+            {!showCollegeForm && (
+                <div className="search-input-wrapper">
+                    <svg 
+                        className="search-icon" 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        width="16" 
+                        height="16" 
+                        fill="currentColor" 
+                        viewBox="0 0 16 16"
+                    >
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                    </svg>
+                    <span className="search-separator">|</span>
+                    <input
+                        type="text"
+                        className="search-bar"
+                        placeholder="Enter College/School"
+                        value={searchValue}
+                        onChange={handleInputChange}
+                    />
+                </div>
+            )}
 
             {showSuggestions && suggestions.length > 0 && (
                 <ul className="suggestions-list">
@@ -115,7 +138,7 @@ const SearchBar = () => {
                 </ul>
             )}
 
-            {showSuggestions && suggestions.length === 0 && (
+            {showSuggestions && suggestions.length === 0 && !showCollegeForm && (
                 <div className="no-suggestions">
                     <p>Can't find your college?</p>
                     <button onClick={() => setShowCollegeForm(true)}>Submit College Request</button>
@@ -146,6 +169,34 @@ const SearchBar = () => {
                     </div>
                     <button type="submit" className="submit-button">Submit</button>
                 </form>
+            )}
+
+            {loading && (
+                <div className="dialog-overlay">
+                    <div className="dialog-box">
+                        <div className="spinner"></div>
+                        <p>Submitting your request...</p>
+                    </div>
+                </div>
+            )}
+
+            {dialogState.show && (
+                <div className="dialog-overlay">
+                    <div className="dialog-box">
+                        {dialogState.status === 'success' ? (
+                            <>
+                                <h2>Request Submitted Successfully!</h2>
+                                <button onClick={handleCloseDialog} className="dialog-button">OK</button>
+                            </>
+                        ) : (
+                            <>
+                                <h2>Error</h2>
+                                <p>{dialogState.message}</p>
+                                <button onClick={handleCloseDialog} className="dialog-button">Try Again</button>
+                            </>
+                        )}
+                    </div>
+                </div>
             )}
         </div>
     );
