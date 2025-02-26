@@ -13,7 +13,7 @@ const AboutPage = () => {
           <section className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 lg:p-12">
             {/* Header */}
             <div className="mb-12">
-              <h1 className="text-4xl font-bold text-gray-900 mb-12 -mt-14 pb-12 text-center relative z-10">
+              <h1 className="text-4xl font-bold text-gray-900 mb-12 mt-8 pb-12 text-center relative z-10">
                 About FreelanceWriting
               </h1>
               <div className="max-w-3xl mx-auto">
