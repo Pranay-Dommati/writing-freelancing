@@ -10,6 +10,11 @@ const SearchBar = () => {
     const [showCollegeForm, setShowCollegeForm] = useState(false);
     const [collegeName, setCollegeName] = useState('');
     const [cityName, setCityName] = useState('');
+    const [touched, setTouched] = useState({
+        collegeName: false,
+        cityName: false
+    });
+    const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
     const [dialogState, setDialogState] = useState({
         show: false,
@@ -50,8 +55,72 @@ const SearchBar = () => {
         navigate(`/college/${college.id}`);
     };
 
+    const validateField = (name, value) => {
+        if (!value.trim()) {
+            return name === 'collegeName' ? 'College name is required' : 'City name is required';
+        }
+        return '';
+    };
+
+    const handleCollegeFormChange = (e) => {
+        const { name, value } = e.target;
+        
+        if (name === 'collegeName') {
+            setCollegeName(value);
+        } else if (name === 'cityName') {
+            setCityName(value);
+        }
+
+        // If field has been touched, validate on change
+        if (touched[name]) {
+            const error = validateField(name, value);
+            setErrors(prev => ({
+                ...prev,
+                [name]: error
+            }));
+        }
+    };
+
+    const handleBlur = (e) => {
+        const { name, value } = e.target;
+        
+        // Mark field as touched
+        setTouched(prev => ({
+            ...prev,
+            [name]: true
+        }));
+
+        // Validate on blur
+        const error = validateField(name, value);
+        setErrors(prev => ({
+            ...prev,
+            [name]: error
+        }));
+    };
+
+    const validateForm = () => {
+        const collegeNameError = validateField('collegeName', collegeName);
+        const cityNameError = validateField('cityName', cityName);
+        
+        setErrors({
+            collegeName: collegeNameError,
+            cityName: cityNameError
+        });
+        
+        setTouched({
+            collegeName: true,
+            cityName: true
+        });
+
+        return !collegeNameError && !cityNameError;
+    };
+
     const handleCollegeFormSubmit = async (e) => {
         e.preventDefault();
+        if (!validateForm()) {
+            return;
+        }
+
         setLoading(true);
         try {
             await axios.post('http://localhost:8000/api/send-college-request/', {
@@ -78,6 +147,13 @@ const SearchBar = () => {
     const handleCloseDialog = () => {
         setDialogState({ show: false, status: '', message: '' });
         setShowCollegeForm(false);
+        setCollegeName('');
+        setCityName('');
+        setErrors({});
+        setTouched({
+            collegeName: false,
+            cityName: false
+        });
         setSearchValue('');
         setSuggestions([]);
     };
@@ -146,28 +222,54 @@ const SearchBar = () => {
             )}
 
             {showCollegeForm && (
-                <form className="college-form" onSubmit={handleCollegeFormSubmit}>
-                    <div className="form-group">
+                <form className="college-form" onSubmit={handleCollegeFormSubmit} noValidate>
+                    <div className={`form-group ${touched.collegeName && errors.collegeName ? 'has-error' : ''}`}>
                         <label htmlFor="collegeName">College Name</label>
                         <input
                             type="text"
                             id="collegeName"
+                            name="collegeName"
                             value={collegeName}
-                            onChange={(e) => setCollegeName(e.target.value)}
+                            onChange={handleCollegeFormChange}
+                            onBlur={handleBlur}
+                            className={touched.collegeName && errors.collegeName ? 'invalid' : ''}
                             required
+                            aria-invalid={touched.collegeName && errors.collegeName ? 'true' : 'false'}
+                            aria-describedby={errors.collegeName ? 'collegeName-error' : undefined}
                         />
+                        {touched.collegeName && errors.collegeName && (
+                            <div className="error-message" id="collegeName-error">
+                                {errors.collegeName}
+                            </div>
+                        )}
                     </div>
-                    <div className="form-group">
+                    <div className={`form-group ${touched.cityName && errors.cityName ? 'has-error' : ''}`}>
                         <label htmlFor="cityName">City Name</label>
                         <input
                             type="text"
                             id="cityName"
+                            name="cityName"
                             value={cityName}
-                            onChange={(e) => setCityName(e.target.value)}
+                            onChange={handleCollegeFormChange}
+                            onBlur={handleBlur}
+                            className={touched.cityName && errors.cityName ? 'invalid' : ''}
                             required
+                            aria-invalid={touched.cityName && errors.cityName ? 'true' : 'false'}
+                            aria-describedby={errors.cityName ? 'cityName-error' : undefined}
                         />
+                        {touched.cityName && errors.cityName && (
+                            <div className="error-message" id="cityName-error">
+                                {errors.cityName}
+                            </div>
+                        )}
                     </div>
-                    <button type="submit" className="submit-button">Submit</button>
+                    <button 
+                        type="submit" 
+                        className="submit-button"
+                        disabled={loading}
+                    >
+                        Submit
+                    </button>
                 </form>
             )}
 
@@ -186,6 +288,7 @@ const SearchBar = () => {
                         {dialogState.status === 'success' ? (
                             <>
                                 <h2>Request Submitted Successfully!</h2>
+                                <p>Thank you for your submission. We'll review and add this college soon.</p>
                                 <button onClick={handleCloseDialog} className="dialog-button">OK</button>
                             </>
                         ) : (
