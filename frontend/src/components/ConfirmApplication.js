@@ -10,6 +10,8 @@ const ConfirmApplication = () => {
   const [error, setError] = useState(null);
   const [assignmentName, setAssignmentName] = useState('');
   const [processing, setProcessing] = useState(false);
+  const [completed, setCompleted] = useState(false);
+  const [actionTaken, setActionTaken] = useState('');
 
   useEffect(() => {
     const validateToken = async () => {
@@ -30,13 +32,20 @@ const ConfirmApplication = () => {
     setProcessing(true);
     try {
       await axios.post(`http://localhost:8000/api/confirm-application/${token}/`, { action });
-      navigate('/', { 
-        state: { 
-          message: action === 'confirm' ? 
-            "Application confirmed! Check your email for writer's details." : 
-            "Application cancelled successfully" 
-        }
-      });
+      setProcessing(false);
+      setCompleted(true);
+      setActionTaken(action);
+      
+      // Set timeout to navigate after showing confirmation message
+      setTimeout(() => {
+        navigate('/', { 
+          state: { 
+            message: action === 'confirm' ? 
+              "Application confirmed! Check your email for writer's details." : 
+              "Application cancelled successfully" 
+          }
+        });
+      }, 3000); // Show confirmation message for 3 seconds before redirecting
     } catch (error) {
       setError(error.response?.data?.error || 'An error occurred');
       setProcessing(false);
@@ -150,7 +159,7 @@ const ConfirmApplication = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <button 
                     onClick={() => handleAction('confirm')}
-                    disabled={processing}
+                    disabled={processing || completed}
                     className="flex items-center justify-center px-6 py-3 rounded-lg
                       bg-gradient-to-r from-green-500 to-green-600 
                       text-white font-semibold
@@ -175,7 +184,7 @@ const ConfirmApplication = () => {
                   
                   <button 
                     onClick={() => handleAction('cancel')}
-                    disabled={processing}
+                    disabled={processing || completed}
                     className="flex items-center justify-center px-6 py-3 rounded-lg
                       bg-gradient-to-r from-red-500 to-red-600
                       text-white font-semibold
@@ -202,6 +211,41 @@ const ConfirmApplication = () => {
                     </svg>
                     <p className="text-gray-700 font-medium">Processing your request...</p>
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Confirmation Message Overlay */}
+            {completed && (
+              <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                <div className="bg-white rounded-lg p-8 shadow-xl max-w-md w-full mx-4 text-center">
+                  {actionTaken === 'confirm' ? (
+                    <>
+                      <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-green-100 mb-4">
+                        <svg className="h-10 w-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Application Confirmed!</h3>
+                      <p className="text-gray-700 mb-3">
+                        The writer's details have been sent to your email. The assignment has been deactivated from the website.
+                      </p>
+                      <p className="text-sm text-gray-500">Redirecting to homepage...</p>
+                    </>
+                  ) : (
+                    <>
+                      <div className="mx-auto flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mb-4">
+                        <svg className="h-8 w-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                      </div>
+                      <h3 className="text-2xl font-bold text-gray-900 mb-2">Application Cancelled</h3>
+                      <p className="text-gray-700 mb-3">
+                        Your assignment will remain active on the website for other applicants.
+                      </p>
+                      <p className="text-sm text-gray-500">Redirecting to homepage...</p>
+                    </>
+                  )}
                 </div>
               </div>
             )}
