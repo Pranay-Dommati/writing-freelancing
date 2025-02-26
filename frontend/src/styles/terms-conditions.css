@@ -1,55 +1,141 @@
 .tc-page {
-  padding: 40px 20px;
-  background-color: #f8f9fa;
+  padding: 40px 20px 80px;
+  background: linear-gradient(to bottom right, #f8fafc, #eef2ff);
   min-height: calc(100vh - 64px); /* Assuming navbar is 64px high */
 }
 
 .tc-title {
-  font-size: 32px;
-  font-weight: bold;
-  color: #333;
+  font-size: 36px;
+  font-weight: 800;
+  color: #1e293b;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
   position: relative; /* Use relative positioning to keep in document flow */
+  letter-spacing: -0.5px;
 }
 
 .tc-container {
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   background-color: white;
-  border-radius: 8px;
-  padding: 30px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .tc-section {
-  margin-bottom: 30px;
+  margin-bottom: 40px;
 }
 
 .tc-section-title {
   font-size: 24px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  color: #333;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+}
+
+.tc-section-title::before {
+  content: '';
+  display: inline-block;
+  width: 4px;
+  height: 24px;
+  background-color: #3b82f6;
+  margin-right: 12px;
+  border-radius: 4px;
+}
+
+.tc-divider {
+  height: 1px;
+  background: linear-gradient(to right, #e2e8f0, #cbd5e1, #e2e8f0);
+  margin-bottom: 24px;
 }
 
 .tc-list {
-  list-style-type: disc;
-  padding-left: 20px;
+  list-style-type: none;
+  padding-left: 0;
 }
 
 .tc-list li {
-  margin-bottom: 10px;
-  line-height: 1.6;
-  color: #555;
+  margin-bottom: 16px;
+  line-height: 1.7;
+  color: #475569;
+  position: relative;
+  padding-left: 28px;
+  font-size: 16px;
+}
+
+.tc-list li:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 10px;
+  height: 8px;
+  width: 8px;
+  border-radius: 50%;
+  background-color: #3b82f6;
+}
+
+.tc-list-with-sublist {
+  margin-bottom: 6px !important;
+}
+
+.tc-list-with-sublist span {
+  font-weight: 600;
 }
 
 .tc-nested-list {
-  list-style-type: circle;
-  padding-left: 20px;
-  margin-top: 8px;
+  list-style-type: none;
+  padding-left: 28px;
+  margin-top: 12px;
 }
 
 .tc-nested-list li {
-  margin-bottom: 6px;
+  margin-bottom: 10px;
+  padding-left: 20px;
 }
+
+.tc-nested-list li:before {
+  width: 6px;
+  height: 6px;
+  top: 11px;
+  background-color: #64748b;
+}
+
+@media (max-width: 768px) {
+  .tc-container {
+    padding: 24px;
+  }
+  
+  .tc-title {
+    font-size: 30px;
+    margin-bottom: 30px;
+  }
+  
+  .tc-section-title {
+    font-size: 22px;
+  }
+}
+
+
+
+.tc-list li {
+    padding-left: 20px; /* Reduce padding to bring text closer */
+    margin-bottom: 10px; /* Reduce spacing between points */
+  }
+  
+  .tc-list li:before {
+    left: 5px; /* Bring bullet points closer */
+  }
+  
+  .tc-nested-list {
+    padding-left: 20px; /* Reduce indentation */
+    margin-top: 5px;
+  }
+  
+  .tc-nested-list li {
+    padding-left: 15px;
+    margin-bottom: 5px;
+  }
+  
