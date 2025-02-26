@@ -15,7 +15,6 @@ return (
 <h2 className="tc-section-title">Disclaimer</h2>
 <div className="tc-divider"></div>
 <ul className="tc-list">
-<li>The platform does not guarantee any job, assignment, or payment.</li>
 <li>The company is not responsible for any damages, losses, or conflicts arising from student interactions.</li>
 <li>By using this platform, users agree to take full responsibility for their actions.</li>
 <li className="tc-list-with-sublist">
@@ -35,6 +34,8 @@ return (
 <h2 className="tc-section-title">Platform Usage</h2>
 <div className="tc-divider"></div>
 <ul className="tc-list">
+<li>The platform is only meant to connect students in need of help with those willing to assist.</li>
+<li>The platform is not responsible after students connect—all further interactions are solely between them.</li>
 <li className="tc-list-with-sublist">
 <span>This website is a student-to-student connection platform where:</span>
 <ul className="tc-nested-list">
@@ -42,8 +43,6 @@ return (
 <li>Other students can apply to complete assignments and earn money.</li>
 </ul>
 </li>
-<li>The platform is only meant to connect students in need of help with those willing to assist.</li>
-<li>The platform is not responsible after students connect—all further interactions are solely between them.</li>
 </ul>
 </div>
 </div>

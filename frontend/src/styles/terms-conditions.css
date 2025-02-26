@@ -19,8 +19,9 @@
   margin: 0 auto;
   background-color: white;
   border-radius: 12px;
-  padding: 40px;
+  padding: 10px 40px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  text-align: left;
 }
 
 .tc-section {
@@ -55,6 +56,7 @@
 .tc-list {
   list-style-type: none;
   padding-left: 0;
+  margin-left: 0;
 }
 
 .tc-list li {
@@ -62,8 +64,9 @@
   line-height: 1.7;
   color: #475569;
   position: relative;
-  padding-left: 28px;
+  padding-left: 20px;
   font-size: 16px;
+  text-align: left;
 }
 
 .tc-list li:before {
@@ -87,13 +90,15 @@
 
 .tc-nested-list {
   list-style-type: none;
-  padding-left: 28px;
+  padding-left: 20px;
   margin-top: 12px;
+  margin-left: 0;
 }
 
 .tc-nested-list li {
   margin-bottom: 10px;
   padding-left: 20px;
+  text-align: left;
 }
 
 .tc-nested-list li:before {
@@ -101,6 +106,7 @@
   height: 6px;
   top: 11px;
   background-color: #64748b;
+  left: 0;
 }
 
 @media (max-width: 768px) {
@@ -120,22 +126,3 @@
 
 
 
-.tc-list li {
-    padding-left: 20px; /* Reduce padding to bring text closer */
-    margin-bottom: 10px; /* Reduce spacing between points */
-  }
-  
-  .tc-list li:before {
-    left: 5px; /* Bring bullet points closer */
-  }
-  
-  .tc-nested-list {
-    padding-left: 20px; /* Reduce indentation */
-    margin-top: 5px;
-  }
-  
-  .tc-nested-list li {
-    padding-left: 15px;
-    margin-bottom: 5px;
-  }
-  
