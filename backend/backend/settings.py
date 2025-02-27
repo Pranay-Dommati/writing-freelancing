@@ -30,7 +30,12 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = ['api.getwritingdone.com', 'getwritingdone.com', 'http://localhost:8000']
+ALLOWED_HOSTS = [
+    'api.getwritingdone.com',
+    'getwritingdone.com',
+    'localhost',
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -56,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -145,10 +151,20 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 # REST Framework settings
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES': [
+#         'rest_framework.permissions.AllowAny',
+#     ]
+# }
+
+# Add to settings.py for production
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',
-    ]
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+    }
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -190,23 +206,3 @@ LOGGING = {
     },
 }
 
-# Development CORS settings - choose ONE approach:
-# Approach 1: Allow all origins (easiest for development)
-CORS_ALLOW_ALL_ORIGINS = True
-
-# Approach 2: Specify allowed origins (more secure)
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:3000",
-#     "http://127.0.0.1:3000",
-#     "https://getwritingdone.com"
-# ]
-
-# Comment out or remove this section to avoid conflicts
-# CORS_ALLOW_METHODS = [
-#     'DELETE',
-#     'GET',
-#     'OPTIONS',
-#     'PATCH',
-#     'POST',
-#     'PUT',
-# ]

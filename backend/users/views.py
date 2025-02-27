@@ -33,7 +33,7 @@ class CollegeSearchView(generics.ListAPIView):
 
     def get_queryset(self):
         query = self.request.query_params.get('q', '')
-        # Allow any non-empty string as a query
+        print(f"Search query: '{query}'")  # Debug print statement
         if query and len(query) >= 1:
             try:
                 return College.objects.filter(
