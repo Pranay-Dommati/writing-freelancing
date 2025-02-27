@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import NavigationBar from './Navbar'; // Add this import
 import '../styles/college-page.css';
+import config from '../config';
 
 const CollegePage = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ const CollegePage = () => {
   useEffect(() => {
     const fetchCollegeDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/colleges/${collegeId}/`);
+        const response = await axios.get(`${config.API_URL}/colleges/${collegeId}/`);
         setCollegeName(response.data.name);
         setLoading(false);
       } catch (error) {

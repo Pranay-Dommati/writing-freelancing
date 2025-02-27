@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NavigationBar from './Navbar';
 import '../styles/feedback-form.css';
+import config from '../config';
 
 const FeedbackForm = () => {
   const navigate = useNavigate();
@@ -23,7 +24,9 @@ const FeedbackForm = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  
+
+const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.errors && !formData.suggestions) {
       alert('Please fill at least one field');
@@ -37,7 +40,7 @@ const FeedbackForm = () => {
     });
 
     try {
-      await axios.post('http://localhost:8000/api/feedback/', formData);
+      await axios.post('${config.API_URL}/feedback/', formData);
       setDialogState({
         show: true,
         status: 'success',
