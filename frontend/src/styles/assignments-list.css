@@ -9,9 +9,11 @@
     font-size: 2.5rem !important;
     color: #333;
     text-align: center;
-    margin: 40px 0 60px !important;
-    padding: 0 20px;
+    margin: 40px auto 60px !important;
+    padding: 0;
     line-height: 1.3;
+    width: 100%;
+    max-width: 1200px;
 }
 
 /* Assignments Container */
@@ -154,11 +156,16 @@
 @media (min-width: 1024px) {
     .assignments-page {
         padding-top: 140px !important;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .college-name {
         font-size: 2.2rem !important;
         margin: 30px 0 50px !important;
+        text-align: center;
+        width: 100%;
     }
 
     .assignments-container {
