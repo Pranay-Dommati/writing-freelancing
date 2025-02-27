@@ -8,4 +8,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 *.so
-.Python
+.Python__pycache__/
+*.py[cod]
+*.so
+*.pyc
+.env
