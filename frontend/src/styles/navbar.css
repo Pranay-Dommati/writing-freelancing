@@ -1,13 +1,56 @@
+/* Reset default margins and padding */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Reset HTML and body elements to ensure no default margins */
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative; /* Changed from fixed to relative */
+    width: 100%;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch; /* Gives mobile scrolling momentum */
+}
+
 .navbar {
-    position: relative; /* Changed from fixed */
+    position: fixed; /* Change from relative to fixed */
+    top: 0; /* Ensure it's at the very top */
+    left: 0; /* Ensure it covers the full width from the left edge */
+    right: 0; /* Ensure it covers the full width to the right edge */
     z-index: 1030;
     margin: 0;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem; /* Removed env(safe-area-inset-top) */
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     width: 100%;
     box-sizing: border-box;
     background-color: #ffffff;
     border-top: 0;
+    height: auto;
+    /* Remove any potential top safe area insets */
+    padding-top: 0.5rem !important;
+    transition: transform 0.3s ease;
+    border: 0;
+}
+
+.navbar.nav-hidden {
+    transform: translateY(-100%);
 }
 
 .navbar-brand {

@@ -1,12 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar, Container, Nav, Offcanvas } from 'react-bootstrap';
-import { Link, useNavigate, useLocation } from 'react-router-dom'; // Add useLocation
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import '../styles/navbar.css';
 
 const NavigationBar = () => {
   const [show, setShow] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
   const navigate = useNavigate();
-  const location = useLocation(); // Add this hook
+  const location = useLocation();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.pageYOffset;
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -15,13 +28,16 @@ const NavigationBar = () => {
     navigate('/');
   };
 
-  // Function to check if link is active
   const isActive = (path) => {
     return location.pathname === path;
   };
 
   return (
-    <Navbar bg="light" expand={false} className="navbar-fixed">
+    <Navbar 
+      bg="light" 
+      expand={false} 
+      className={`navbar-fixed ${!visible ? 'nav-hidden' : ''}`}
+    >
       <Container fluid>
         <Navbar.Toggle aria-controls="offcanvasNavbar" onClick={handleShow} />
         <Navbar.Brand 
