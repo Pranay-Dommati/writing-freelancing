@@ -33,10 +33,15 @@ class CollegeSearchView(generics.ListAPIView):
 
     def get_queryset(self):
         query = self.request.query_params.get('q', '')
-        if (query):
-            return College.objects.filter(
-                name__icontains=query
-            ).order_by('name')[:10]  # Limit to 10 results
+        print(f"Search query: '{query}'")  # Debug print statement
+        if query and len(query) >= 1:
+            try:
+                return College.objects.filter(
+                    name__icontains=query
+                ).order_by('name')[:10]  # Limit to 10 results
+            except Exception as e:
+                print(f"Search error: {e}")
+                return College.objects.none()
         return College.objects.none()
     
     

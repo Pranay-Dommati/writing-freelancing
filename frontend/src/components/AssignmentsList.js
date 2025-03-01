@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import NavigationBar from './Navbar';
 import '../styles/assignments-list.css';
+import config from '../config';
 
 const AssignmentsList = () => {
     const navigate = useNavigate();
@@ -21,13 +22,13 @@ const AssignmentsList = () => {
             try {
                 // Fetch college details
                 const collegeResponse = await axios.get(
-                    `http://localhost:8000/api/colleges/${collegeId}/`
+                    `${config.API_URL}/colleges/${collegeId}/`
                 );
                 setCollegeName(collegeResponse.data.name);
 
                 // Fetch assignments for this college
                 const assignmentsResponse = await axios.get(
-                    `http://localhost:8000/api/colleges/${collegeId}/assignments/list/`
+                    `${config.API_URL}/colleges/${collegeId}/assignments/list/`
                 );
                 setAssignments(assignmentsResponse.data);
                 setDisplayedAssignments(assignmentsResponse.data.slice(0, assignmentsPerPage));

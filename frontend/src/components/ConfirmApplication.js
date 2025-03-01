@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NavigationBar from './Navbar';
+import config from '../config';
 
 const ConfirmApplication = () => {
   const { token } = useParams();
@@ -16,7 +17,7 @@ const ConfirmApplication = () => {
   useEffect(() => {
     const validateToken = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/confirm-application/${token}/`);
+        const response = await axios.get(`${config.API_URL}/confirm-application/${token}/`);
         setAssignmentName(response.data.assignment_name);
         setLoading(false);
       } catch (error) {
@@ -28,10 +29,12 @@ const ConfirmApplication = () => {
     validateToken();
   }, [token]);
 
-  const handleAction = async (action) => {
+  
+
+const handleAction = async (action) => {
     setProcessing(true);
     try {
-      await axios.post(`http://localhost:8000/api/confirm-application/${token}/`, { action });
+      await axios.post(`${config.API_URL}/confirm-application/${token}/`, { action });
       setProcessing(false);
       setCompleted(true);
       setActionTaken(action);

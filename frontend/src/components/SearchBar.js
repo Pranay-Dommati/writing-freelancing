@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import '../styles/landing-page.css';
+import config from '../config'; // Import the config
 
 const SearchBar = () => {
     const [searchValue, setSearchValue] = useState('');
@@ -28,7 +29,8 @@ const SearchBar = () => {
         const fetchSuggestions = async () => {
             if (searchValue.trim().length > 0) {
                 try {
-                    const response = await axios.get(`http://localhost:8000/api/search/?q=${searchValue}`);
+                    // Use config.API_URL instead of hardcoded URL
+                    const response = await axios.get(`${config.API_URL}/search/?q=${searchValue}`);
                     setSuggestions(response.data);
                     setShowSuggestions(true);
                 } catch (error) {
@@ -123,7 +125,8 @@ const SearchBar = () => {
 
         setLoading(true);
         try {
-            await axios.post('http://localhost:8000/api/send-college-request/', {
+            // Use config.API_URL instead of hardcoded URL
+            await axios.post(`${config.API_URL}/send-college-request/`, {
                 collegeName,
                 cityName
             });

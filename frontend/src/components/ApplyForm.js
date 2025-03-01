@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import NavigationBar from './Navbar';
 import '../styles/apply-form.css';
+import config from '../config';
 
 // Validation helper functions
 const validators = {
@@ -89,7 +90,7 @@ const ApplyForm = () => {
   useEffect(() => {
     const fetchCollegeDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/colleges/${collegeId}/`);
+        const response = await axios.get(`${config.API_URL}/colleges/${collegeId}/`);
         setCollegeName(response.data.name);
         setLoading(false);
       } catch (error) {
@@ -182,7 +183,9 @@ const ApplyForm = () => {
     return !Object.values(newErrors).some(error => error);
   };
 
-  const handleSubmit = async (e) => {
+
+
+const handleSubmit = async (e) => {
     e.preventDefault();
     
     if (!validateForm()) {
@@ -197,7 +200,7 @@ const ApplyForm = () => {
 
     try {
       await axios.post(
-        `http://localhost:8000/api/colleges/${collegeId}/assignments/${assignmentId}/apply/`,
+        `${config.API_URL}/colleges/${collegeId}/assignments/${assignmentId}/apply/`,
         {
           name: formData.name.trim(),
           contact_type: formData.contactType,
